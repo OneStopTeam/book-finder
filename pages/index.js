@@ -1,9 +1,11 @@
 import Result from "../src/components/Result";
+import Search from "../src/components/Search";
 
 export default function Home() {
   return (
-    <div>
+    <>
+      <Search />
       <Result />
-    </div>
+    </>
   );
 }
