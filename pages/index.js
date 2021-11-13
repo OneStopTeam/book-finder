@@ -1,5 +1,9 @@
-import Head from "next/head";
+import Result from "../src/components/Result";
 
 export default function Home() {
-  return <div></div>;
+  return (
+    <div>
+      <Result />
+    </div>
+  );
 }
