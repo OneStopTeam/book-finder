@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 export default function Search() {
   return (
-    <Flex w="80%" maxW="800" mt="10%" pos="relative" alignItems="center">
+    <Flex w="80%" maxW="800" mt="10%" pos="relative">
       <Input
         p={5}
         placeholder="검색어를 입력하세요"
