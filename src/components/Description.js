@@ -4,16 +4,24 @@ import { Button, Box, Text, Stack } from "@chakra-ui/react";
 
 export default function Description() {
   const [loading, setLoading] = useState(false);
+  const [bookObj, setBookObj] = useState("");
+
   useEffect(() => {
     const book = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          `https://www.googleapis.com/books/v1/volumes?q=search+terms`
-        );
-      } catch (e) {
-        console.log("에러 발생");
-      }
+      setLoading(true);
+      const response = await axios.get(
+        `https://www.googleapis.com/books/v1/volumes?q=search+terms`
+      );
+      setBookObj({
+        title: response.title,
+        authors: response.authors,
+        publisher: publishedDate,
+        description,
+        pageCount,
+        averageRating,
+        imageLinks,
+        buyLink,
+      });
       setLoading(false);
     };
     book();
@@ -21,19 +29,5 @@ export default function Description() {
 
   if (loading) return <div>로딩중</div>;
 
-  return (
-    <Box>
-      <Stack direction={["column", "row"]}>
-        <Box>image</Box>
-        <Box>
-          <Text fontsize="1rem">책 제목</Text>
-          <Text>작가/출판사/출판연도</Text>
-          <Text>책소개</Text>
-          <Text>줄거리줄거리</Text>
-        </Box>
-      </Stack>
-      <Button>미리보기</Button>
-      <Button>구매하기</Button>
-    </Box>
-  );
+  return <div></div>;
 }
