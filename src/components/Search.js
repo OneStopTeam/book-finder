@@ -9,7 +9,7 @@ import styled from "styled-components";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-export default function Search() {
+export default function Search({ setBooks, setIsLoading }) {
   const [keyword, setKeyword] = useState("");
 
   const searchBooks = async () => {
@@ -20,10 +20,8 @@ export default function Search() {
       const {
         data: { items },
       } = books;
-      const {
-        volumeInfo: { title },
-      } = items[0];
-      console.log(title);
+      setBooks(items);
+      setIsLoading(false);
     }
   };
 
