@@ -9,10 +9,12 @@ import styled from "styled-components";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-export default function Search({ setBooks, setIsLoading }) {
+export default function Search({ setFirst, setBooks, setIsLoading }) {
   const [keyword, setKeyword] = useState("");
 
   const searchBooks = async () => {
+    setFirst(false);
+    setIsLoading(true);
     if (keyword) {
       const books = await axios.get(
         `https://www.googleapis.com/books/v1/volumes?q=${keyword}`
