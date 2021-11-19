@@ -11,8 +11,8 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <Flex direction="column" align="center">
-      <Image src={bgImage.src} w="100%" maxH="250" objectFit="cover" />
+    <Flex direction="column" align="center" pos="relative">
+      <Image src={bgImage.src} w="100%" maxH="2xs" objectFit="cover" />
       <Search setBooks={setBooks} setIsLoading={setIsLoading} />
       <Result books={books} isLaoding={isLoading} />
     </Flex>

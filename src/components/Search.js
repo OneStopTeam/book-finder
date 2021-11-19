@@ -50,22 +50,25 @@ export default function Search({ setBooks, setIsLoading }) {
       id="keyword"
       display="flex"
       width="80%"
-      maxWidth="800"
-      marginTop="10%"
+      maxWidth="70rem"
       alignItems="center"
-      method="get"
+      pos="absolute"
+      top="15rem"
     >
       <Input
-        p={5}
+        p={6}
         value={keyword}
         placeholder="검색어를 입력하세요"
-        borderRadius="10"
         boxShadow="md"
+        bgColor="white"
+        focusBorderColor="orange.600"
         onChange={(event) => handleChange(event)}
         onKeyPress={(event) => pressEnter(event)}
       />
       <IconButton
-        right="0"
+        boxShadow="md"
+        size="lg"
+        colorScheme="orange"
         aria-label="Search database"
         icon={<SearchIcon />}
         onClick={() => clickButton()}

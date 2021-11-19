@@ -31,7 +31,7 @@ export default function ResultItem({ book }) {
 
   return (
     <Box display="flex" boxShadow="md" borderRadius="15">
-      <AspectRatio minW={120} ratio={3 / 4}>
+      <AspectRatio minW="10rem" ratio={3 / 4}>
         {imageLinks ? (
           <Image
             src={imageLinks.smallThumbnail}
@@ -60,8 +60,13 @@ export default function ResultItem({ book }) {
         <List mt={3}>
           {trimCategory(categories) &&
             trimCategory(categories).map((category) => (
-              <ListItem fontSize="sm">
-                <ListIcon as={ChevronRightIcon} />
+              <ListItem fontSize="sm" display="flex" alignItems="flex-start">
+                <ListIcon
+                  as={ChevronRightIcon}
+                  color="orange.600"
+                  w={5}
+                  h={5}
+                />
                 {category}
               </ListItem>
             ))}
