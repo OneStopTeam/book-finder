@@ -5,10 +5,6 @@ import { useState } from "react";
 import { Input, IconButton, FormControl } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 
-import styled from "styled-components";
-
-const API_KEY = process.env.REACT_APP_API_KEY;
-
 export default function Search({ setFirst, setBooks, setIsLoading }) {
   const [keyword, setKeyword] = useState("");
 
