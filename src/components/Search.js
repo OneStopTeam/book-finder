@@ -3,6 +3,9 @@ import { SearchIcon } from "@chakra-ui/icons";
 
 import styled from "styled-components";
 
+const API_KEY = process.env.REACT_APP_API_KEY;
+console.log(API_KEY);
+
 export default function Search() {
   return (
     <Flex w="80%" maxW="800" mt="10%" pos="relative">
