@@ -1,21 +1,72 @@
-import { WrapItem } from "@chakra-ui/layout";
-import { Image } from "@chakra-ui/react";
+import { Box, ListIcon } from "@chakra-ui/layout";
+import { Image, Text, List, ListItem, AspectRatio } from "@chakra-ui/react";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 
 import bookCover from "../../assets/book-cover.png";
 
 export default function ResultItem({ book }) {
   const {
-    volumeInfo: { imageLinks, title },
+    volumeInfo: {
+      imageLinks,
+      title,
+      authors,
+      publisher,
+      publishedDate,
+      categories,
+    },
   } = book;
-  console.log(bookCover);
+
+  const trimCategory = (categories) => {
+    if (categories) {
+      const list = categories[0].split("&");
+      const trimed = [];
+      for (let i = 0; i < list.length; i++) {
+        trimed.push(list[i].trim());
+      }
+      return trimed;
+    }
+  };
+
+  console.log(book);
 
   return (
-    <WrapItem>
-      {imageLinks ? (
-        <Image src={imageLinks.smallThumbnail} alt={title} />
-      ) : (
-        <Image src={bookCover.src} alt={title} />
-      )}
-    </WrapItem>
+    <Box display="flex" boxShadow="md" borderRadius="15">
+      <AspectRatio minW={120} ratio={3 / 4}>
+        {imageLinks ? (
+          <Image
+            src={imageLinks.smallThumbnail}
+            alt={title}
+            objectFit="scaleDown"
+            borderRadius="15"
+          />
+        ) : (
+          <Image
+            src={bookCover.src}
+            alt={title}
+            objectFit="scaleDown"
+            borderRadius="15"
+          />
+        )}
+      </AspectRatio>
+
+      <Box p={5}>
+        <Text mb={2}>{title}</Text>
+        <Text fontSize="sm" color="gray.500">
+          {authors} / {publisher}
+        </Text>
+        <Text fontSize="sm" color="gray.500">
+          {publishedDate}
+        </Text>
+        <List mt={3}>
+          {trimCategory(categories) &&
+            trimCategory(categories).map((category) => (
+              <ListItem fontSize="sm">
+                <ListIcon as={ChevronRightIcon} />
+                {category}
+              </ListItem>
+            ))}
+        </List>
+      </Box>
+    </Box>
   );
 }

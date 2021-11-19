@@ -1,10 +1,10 @@
-import { Container, Text, Wrap } from "@chakra-ui/react";
+import { Container, Text, Grid } from "@chakra-ui/react";
 
 import ResultItem from "./ResultItem";
 
 export default function Result({ books, isLoading }) {
   return (
-    <Container>
+    <Container maxW="80%">
       {isLoading ? (
         <Text>Loading...</Text>
       ) : books.length === 0 ? (
@@ -12,11 +12,11 @@ export default function Result({ books, isLoading }) {
       ) : (
         <>
           <Text>결과 {books.length}개</Text>
-          <Wrap>
+          <Grid templateColumns="repeat(3, 1fr)" gap={10}>
             {books.map((book) => (
               <ResultItem book={book} />
             ))}
-          </Wrap>
+          </Grid>
         </>
       )}
     </Container>
