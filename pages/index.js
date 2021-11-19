@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Flex, Image } from "@chakra-ui/react";
+import { Flex, Image, Text } from "@chakra-ui/react";
 
 import bgImage from "../assets/book-bg.jpg";
 import Result from "../src/components/Result";
