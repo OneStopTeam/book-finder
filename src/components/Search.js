@@ -23,8 +23,8 @@ export default function Search({ setFirst, setBooks, setIsLoading }) {
         data: { items },
       } = books;
       setBooks(items);
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   const handleChange = (event) => {
