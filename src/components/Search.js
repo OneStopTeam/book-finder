@@ -12,6 +12,21 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 export default function Search() {
   const [keyword, setKeyword] = useState("");
 
+  const searchBooks = async () => {
+    if (keyword) {
+      const books = await axios.get(
+        `https://www.googleapis.com/books/v1/volumes?q=${keyword}`
+      );
+      const {
+        data: { items },
+      } = books;
+      const {
+        volumeInfo: { title },
+      } = items[0];
+      console.log(title);
+    }
+  };
+
   const handleChange = (event) => {
     const {
       target: { value },
@@ -22,11 +37,13 @@ export default function Search() {
   const pressEnter = (event) => {
     const { key } = event;
     if (key === "Enter") {
+      searchBooks();
       setKeyword("");
     }
   };
 
   const clickButton = () => {
+    searchBooks();
     setKeyword("");
   };
 
