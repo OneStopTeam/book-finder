@@ -1,9 +1,9 @@
-import Result from "../src/components/Result";
+import Description from "../src/components/Description";
 
 export default function Home() {
   return (
     <div>
-      <Result />
+      <Description />
     </div>
   );
 }
