@@ -4,7 +4,7 @@ import ResultItem from "./ResultItem";
 
 export default function Result({ books, isLoading }) {
   return (
-    <Container maxW="80%" mt="5%" mb="5%" display="flex" flexDir="column">
+    <Container maxW="80%" mt="4rem" mb="4rem" display="flex" flexDir="column">
       {isLoading ? (
         <Box textAlign="center">
           <Spinner mt="10%" color="red.500" thickness="4px" size="xl" />
@@ -21,7 +21,16 @@ export default function Result({ books, isLoading }) {
           <Text display="flex" mb="2rem" fontSize="xl" fontWeight="bold">
             <Text color="red.500">{books.length}</Text>개의 책을 찾았어요
           </Text>
-          <Grid templateColumns="repeat(3, 1fr)" gap={10}>
+          <Grid
+            templateColumns={[
+              "repeat(1, 1fr)",
+              "repeat(1, 1fr)",
+              "repeat(2, 1fr)",
+              "repeat(2, 1fr)",
+              "repeat(3, 1fr)",
+            ]}
+            gap={10}
+          >
             {books.map((book) => (
               <ResultItem book={book} />
             ))}
