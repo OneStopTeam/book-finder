@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Flex, Grid, Box, Text, Spinner, Image } from "@chakra-ui/react";
 import bookCover from "../../public/img/book-cover.png";
-const API_KEY = "AIzaSyCvt99_fFgPgG1nkMgli_HCXxD0d-MTFFo";
 
 export default function Recommend() {
   const [related, setRelated] = useState([]);

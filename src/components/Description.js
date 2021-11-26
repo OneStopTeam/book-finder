@@ -2,13 +2,10 @@ import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button, Box, Text, Stack, Image, Flex } from "@chakra-ui/react";
-const API_KEY = "AIzaSyCgCD-h-9f4xPwqKCAj0pn6f5MPehFWV3I";
-import { AiFillStar } from "react-icons/fa";
 
 export default function Description() {
   const [loading, setLoading] = useState(false);
   const [bookObj, setBookObj] = useState("");
-
   const BuyButton = () => {
     return (
       <Link href={bookList[0].saleInfo.buyLink}>
