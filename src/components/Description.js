@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button, Box, Text, Stack, Image, Flex } from "@chakra-ui/react";
 const API_KEY = "AIzaSyCgCD-h-9f4xPwqKCAj0pn6f5MPehFWV3I";
+import { AiFillStar } from "react-icons/fa";
 
 export default function Description() {
   const [loading, setLoading] = useState(false);
@@ -11,14 +12,15 @@ export default function Description() {
   const BuyButton = () => {
     return (
       <Link href={bookList[0].saleInfo.buyLink}>
-        <Button>구매하기</Button>
+        <Button m={1}>구매하기</Button>
       </Link>
     );
   };
+
   const PreviewButton = () => {
     return (
       <Link href={bookList[0].volumeInfo.previewLink}>
-        <Button>미리보기</Button>
+        <Button m={1}>미리보기</Button>
       </Link>
     );
   };
@@ -26,35 +28,44 @@ export default function Description() {
   return (
     <Box>
       <Flex borderRdius="15" justify="center" direction="column">
-        <Stack direction={["column", "row"]} p={20} m="1rem">
-          <Image
-            src={bookList[0].volumeInfo.imageLinks.small}
-            h="30rem"
-            p={5}
-          />
+        <Flex direction="row" p={20} m="1rem" justify="center">
           <Box>
-            <Text fontSize="2rem" fontWeight="bolder" p={1}>
+            <Image
+              boxShadow="md"
+              borderRadius="1rem"
+              src={bookList[0].volumeInfo.imageLinks.small}
+              p={1}
+            />
+            <Flex m={2} justify="center">
+              <BuyButton />
+              <PreviewButton />
+            </Flex>
+          </Box>
+          <Box m={3}>
+            <Text fontSize="2rem" fontWeight="bolder">
               {bookList[0].volumeInfo.title}
             </Text>
-            <Text>
+            <Text m={1} color="#868e96">
               {bookList[0].volumeInfo.authors[0]},
-              {bookList[0].volumeInfo.authors[1]}/
-              {bookList[0].volumeInfo.publisher}/
+              {bookList[0].volumeInfo.authors[1]} |
+              {bookList[0].volumeInfo.publisher} |
               {bookList[0].volumeInfo.publishedDate}
             </Text>
-            <Box h="30rem" maxW="40rem" overflow="auto">
-              <Text>책소개</Text>
-              <Box>
+            <Box m={2}>
+              <Text m={1}>책소개</Text>
+              <Box h="17rem" maxW="40rem" overflow="auto">
                 {bookList[0].volumeInfo.description}
-                ooooooooooooooooooooooooooooooooㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ
+                {bookList[0].volumeInfo.description}
+                {bookList[0].volumeInfo.description}
+                {bookList[0].volumeInfo.description}
+                {bookList[0].volumeInfo.description}
+                {bookList[0].volumeInfo.description}
+                {bookList[0].volumeInfo.description}
+                {bookList[0].volumeInfo.description}
               </Box>
             </Box>
           </Box>
-        </Stack>
-        <Box>
-          <BuyButton />
-          <PreviewButton />
-        </Box>
+        </Flex>
       </Flex>
     </Box>
   );
