@@ -8,6 +8,10 @@ export default function Recommend() {
   const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  function randomItem(a) {
+    return a[Math.floor(Math.random() * a.length)];
+  }
+
   useEffect(() => {
     const book = async () => {
       setLoading(true);
@@ -68,3 +72,26 @@ export default function Recommend() {
     </Grid>
   );
 }
+
+const recommendKeyword = [
+  "시",
+  "소설",
+  "유아",
+  "에세이",
+  "경제",
+  "여행",
+  "사회",
+  "컴퓨터",
+  "뷰티",
+  "건강",
+  "전공",
+  "만화",
+  "역사",
+  "문화",
+  "경영",
+  "세계",
+  "기술",
+  "미술",
+  "음악",
+  "체육",
+];
