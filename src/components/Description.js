@@ -15,6 +15,13 @@ export default function Description() {
       </Link>
     );
   };
+  const PreviewButton = () => {
+    return (
+      <Link href={bookList[0].volumeInfo.previewLink}>
+        <Button>미리보기</Button>
+      </Link>
+    );
+  };
 
   return (
     <Box>
@@ -46,6 +53,7 @@ export default function Description() {
         </Stack>
         <Box>
           <BuyButton />
+          <PreviewButton />
         </Box>
       </Flex>
     </Box>
@@ -65,6 +73,8 @@ const bookList = [
       mainCategory: "Business & Economics / Entrepreneurship",
       averageRating: 3.5,
       ratingsCount: 136,
+      previewLink:
+        "http://books.google.co.kr/books?id=WxoaAQAAIAAJ&q=inauthor%3D%ED%99%A9%EC%88%9C%EC%9B%90&dq=inauthor%3D%ED%99%A9%EC%88%9C%EC%9B%90&hl=&cd=8&source=gbs_api",
       imageLinks: {
         smallThumbnail:
           "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
