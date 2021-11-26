@@ -1,4 +1,5 @@
 import axios from "axios";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button, Box, Text, Stack, Image, Flex } from "@chakra-ui/react";
 const API_KEY = "AIzaSyCgCD-h-9f4xPwqKCAj0pn6f5MPehFWV3I";
@@ -7,30 +8,47 @@ export default function Description() {
   const [loading, setLoading] = useState(false);
   const [bookObj, setBookObj] = useState("");
 
+  const BuyButton = () => {
+    return (
+      <Link href={bookList[0].saleInfo.buyLink}>
+        <Button>구매하기</Button>
+      </Link>
+    );
+  };
+
   return (
-    <Flex borderRdius="15" justify="center">
-      <Stack direction={["column", "row"]} p={20} m="1rem">
-        <Image src={bookList[0].volumeInfo.imageLinks.small} h="30rem" p={5} />
-        <Box>
-          <Text fontSize="2rem" fontWeight="bolder">
-            {bookList[0].volumeInfo.title}
-          </Text>
-          <Text>
-            {bookList[0].volumeInfo.authors[0]},
-            {bookList[0].volumeInfo.authors[1]}/
-            {bookList[0].volumeInfo.publisher}/
-            {bookList[0].volumeInfo.publishedDate}
-          </Text>
-          <Box h="30rem" maxW="40rem" overflow="auto">
-            <Text>책소개</Text>
-            <Box>
-              {bookList[0].volumeInfo.description}
-              ooooooooooooooooooooooooooooooooㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ
+    <Box>
+      <Flex borderRdius="15" justify="center" direction="column">
+        <Stack direction={["column", "row"]} p={20} m="1rem">
+          <Image
+            src={bookList[0].volumeInfo.imageLinks.small}
+            h="30rem"
+            p={5}
+          />
+          <Box>
+            <Text fontSize="2rem" fontWeight="bolder" p={1}>
+              {bookList[0].volumeInfo.title}
+            </Text>
+            <Text>
+              {bookList[0].volumeInfo.authors[0]},
+              {bookList[0].volumeInfo.authors[1]}/
+              {bookList[0].volumeInfo.publisher}/
+              {bookList[0].volumeInfo.publishedDate}
+            </Text>
+            <Box h="30rem" maxW="40rem" overflow="auto">
+              <Text>책소개</Text>
+              <Box>
+                {bookList[0].volumeInfo.description}
+                ooooooooooooooooooooooooooooooooㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐㅐ
+              </Box>
             </Box>
           </Box>
+        </Stack>
+        <Box>
+          <BuyButton />
         </Box>
-      </Stack>
-    </Flex>
+      </Flex>
+    </Box>
   );
 }
 
