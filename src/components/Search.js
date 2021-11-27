@@ -69,7 +69,7 @@ export default function Search({ setFirst, setBooks, setIsLoading }) {
         colorScheme="orange"
         aria-label="Search database"
         icon={<SearchIcon />}
-        onClick={() => clickButton()}
+        onClick={clickButton}
       />
     </FormControl>
   );

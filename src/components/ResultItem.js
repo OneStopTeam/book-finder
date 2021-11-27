@@ -27,8 +27,6 @@ export default function ResultItem({ book }) {
     }
   };
 
-  console.log(book);
-
   return (
     <Box display="flex" boxShadow="md" borderRadius="15">
       <AspectRatio minW="10rem" ratio={3 / 4}>

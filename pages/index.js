@@ -8,6 +8,7 @@ import Search from "../src/components/Search";
 import Recommend from "../src/components/Recommend";
 
 export default function Home() {
+  // component로 분리
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [first, setFirst] = useState(true);

@@ -62,7 +62,7 @@ export default function Recommend() {
             fontSize="0.7rem"
             w="10rem"
             color="#868e96"
-            positon="absolute"
+            position="absolute"
           >
             {value.volumeInfo.title}
           </Text>
