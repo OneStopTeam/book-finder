@@ -2,13 +2,10 @@ import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button, Box, Text, Stack, Image, Flex } from "@chakra-ui/react";
-const API_KEY = "AIzaSyCgCD-h-9f4xPwqKCAj0pn6f5MPehFWV3I";
-import { AiFillStar } from "react-icons/fa";
 
 export default function Description() {
   const [loading, setLoading] = useState(false);
   const [bookObj, setBookObj] = useState("");
-
   const BuyButton = () => {
     return (
       <Link href={bookList[0].saleInfo.buyLink}>
@@ -23,6 +20,19 @@ export default function Description() {
         <Button m={1}>미리보기</Button>
       </Link>
     );
+  };
+
+  const Author = () => {
+    if (bookList[0].volumeInfo.authors) {
+      const authorList = [];
+      console.log();
+      for (let i = 0; i < bookList[0].volumeInfo.authors.length; i++) {
+        {
+          bookList[0].volumeInfo.authors[i];
+        }
+      }
+      return authorList;
+    }
   };
 
   return (
@@ -46,10 +56,13 @@ export default function Description() {
               {bookList[0].volumeInfo.title}
             </Text>
             <Text m={1} color="#868e96">
-              {bookList[0].volumeInfo.authors[0]},
-              {bookList[0].volumeInfo.authors[1]} |
-              {bookList[0].volumeInfo.publisher} |
-              {bookList[0].volumeInfo.publishedDate}
+              <Flex direction="row">
+                {Author(bookList[0].volumeInfo.authors).map((authors) => (
+                  <Box>{authors}</Box>
+                ))}
+                |{bookList[0].volumeInfo.publisher} |
+                {bookList[0].volumeInfo.publishedDate}
+              </Flex>
             </Text>
             <Box m={2}>
               <Text m={1}>책소개</Text>
