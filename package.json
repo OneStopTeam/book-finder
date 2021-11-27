@@ -8,16 +8,26 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@chakra-ui/button": "^1.5.1",
     "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/react": "^1.7.1",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "axios": "^0.24.0",
+=======
+    "@chakra-ui/icons": "^1.1.1",
+    "@chakra-ui/react": "^1.7.2",
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0",
+    "axios": "^0.24.0",
+    "dotenv": "^10.0.0",
+>>>>>>> feature/realatedBook
     "framer-motion": "^4.1.17",
     "next": "12.0.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
