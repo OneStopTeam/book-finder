@@ -1,5 +1,10 @@
 import Link from "next/link";
+import Description from "../src/components/Description";
 
 export default function Detail() {
-  return <div>페이지 이동</div>;
+  return (
+    <div>
+      <Description />
+    </div>
+  );
 }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Flex, Grid, Box, Text, Spinner, Image } from "@chakra-ui/react";
 import bookCover from "../../public/img/book-cover.png";
@@ -37,36 +38,38 @@ export default function Recommend() {
   return (
     <Grid templateColumns="repeat(4,1fr)" m={10}>
       {related.map((value, index) => (
-        <Box key={index} position="relative" visibility="">
-          {value.volumeInfo.imageLinks ? (
-            <Image
-              h="15rem"
-              key={index}
-              alt={value.volumeInfo.title}
-              src={value.volumeInfo.imageLinks.thumbnail}
-              borderRadius="15"
-              boxShadow="md"
-            />
-          ) : (
-            <Image
-              src={bookCover.src}
-              h="15rem"
-              boxShadow="md"
-              borderRadius="15"
-            />
-          )}
-          <Text
-            p={1}
-            display="flex"
-            justify="center"
-            fontSize="0.7rem"
-            w="10rem"
-            color="#868e96"
-            positon="absolute"
-          >
-            {value.volumeInfo.title}
-          </Text>
-        </Box>
+        <Link href="./detail">
+          <Box key={index} position="relative" visibility="">
+            {value.volumeInfo.imageLinks ? (
+              <Image
+                h="15rem"
+                key={index}
+                alt={value.volumeInfo.title}
+                src={value.volumeInfo.imageLinks.thumbnail}
+                borderRadius="15"
+                boxShadow="md"
+              />
+            ) : (
+              <Image
+                src={bookCover.src}
+                h="15rem"
+                boxShadow="md"
+                borderRadius="15"
+              />
+            )}
+            <Text
+              p={1}
+              display="flex"
+              justify="center"
+              fontSize="0.7rem"
+              w="10rem"
+              color="#868e96"
+              positon="absolute"
+            >
+              {value.volumeInfo.title}
+            </Text>
+          </Box>
+        </Link>
       ))}
     </Grid>
   );
