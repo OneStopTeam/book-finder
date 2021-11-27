@@ -27,9 +27,7 @@ export default function Description() {
       const authorList = [];
       console.log();
       for (let i = 0; i < bookList[0].volumeInfo.authors.length; i++) {
-        {
-          bookList[0].volumeInfo.authors[i];
-        }
+        authorList.push(bookList[0].volumeInfo.authors[i].trim());
       }
       return authorList;
     }
