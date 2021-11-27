@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 
 import { Flex, Image } from "@chakra-ui/react";
@@ -6,7 +5,7 @@ import { Flex, Image } from "@chakra-ui/react";
 import bgImage from "../assets/book-bg.jpg";
 import Result from "../src/components/Result";
 import Search from "../src/components/Search";
-import First from "../src/components/First";
+import Recommend from "../src/components/Recommend";
 
 export default function Home() {
   const [books, setBooks] = useState([]);
@@ -21,7 +20,7 @@ export default function Home() {
         setBooks={setBooks}
         setIsLoading={setIsLoading}
       />
-      {first ? <First /> : <Result books={books} isLoading={isLoading} />}
+      {first ? <Recommend /> : <Result books={books} isLoading={isLoading} />}
     </Flex>
   );
 }

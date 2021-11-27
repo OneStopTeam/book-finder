@@ -4,28 +4,23 @@ import { Flex, Grid, Box, Text, Spinner, Image } from "@chakra-ui/react";
 import bookCover from "../../public/img/book-cover.png";
 
 export default function Recommend() {
-  const [related, setRelated] = useState([]);
+  const [bookObj, setBookObj] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  function randomItem(a) {
-    return a[Math.floor(Math.random() * a.length)];
-  }
+  const author = "황순원";
 
   useEffect(() => {
     const book = async () => {
       setLoading(true);
-      if (randomItem(recommendKeyword)) {
+      if (author) {
         const response = await axios.get(
-          `https://www.googleapis.com/books/v1/volumes?q=${randomItem(
-            recommendKeyword
-          )}`
+          `https://www.googleapis.com/books/v1/volumes?q=${author}`
         );
-        setRelated(response.data.items);
+        setBookObj(response.data.items);
       }
       setLoading(false);
     };
     book();
-    console.log(related);
+    console.log(bookObj);
   }, []);
 
   if (loading)
@@ -36,7 +31,7 @@ export default function Recommend() {
     );
   return (
     <Grid templateColumns="repeat(4,1fr)" m={10}>
-      {related.map((value, index) => (
+      {bookObj.map((value, index) => (
         <Box key={index} position="relative" visibility="">
           {value.volumeInfo.imageLinks ? (
             <Image
@@ -71,28 +66,3 @@ export default function Recommend() {
     </Grid>
   );
 }
-
-const recommendKeyword = [
-  "시",
-  "소설",
-  "유아",
-  "에세이",
-  "경제",
-  "여행",
-  "사회",
-  "컴퓨터",
-  "뷰티",
-  "건강",
-  "전공",
-  "만화",
-  "역사",
-  "문화",
-  "경영",
-  "세계",
-  "기술",
-  "미술",
-  "음악",
-  "체육",
-  "취미",
-  "외국어",
-];
