@@ -1,6 +1,6 @@
-import { Container, Text, Grid, Spinner, Box } from "@chakra-ui/react";
-
 import ResultItem from "./ResultItem";
+
+import { Container, Text, Grid, Spinner, Box } from "@chakra-ui/react";
 
 export default function Result({ books, isLoading }) {
   return (

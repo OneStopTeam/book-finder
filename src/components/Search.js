@@ -1,46 +1,16 @@
-import axios from "axios";
-
-import { useState } from "react";
-
 import { Input, IconButton, FormControl } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 
-export default function Search({ setFirst, setBooks, setIsLoading }) {
-  const [keyword, setKeyword] = useState("");
-
-  const searchBooks = async () => {
-    setFirst(false);
-    setIsLoading(true);
-    if (keyword) {
-      const books = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=${keyword}`
-      );
-      const {
-        data: { items },
-      } = books;
-      setBooks(items);
-    }
-    setIsLoading(false);
-  };
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setKeyword(value);
-  };
-
+export default function Search({ searchBook, handleChange }) {
   const pressEnter = (event) => {
     const { key } = event;
     if (key === "Enter") {
-      searchBooks();
-      setKeyword("");
+      searchBook();
     }
   };
 
   const clickButton = () => {
-    searchBooks();
-    setKeyword("");
+    searchBook();
   };
 
   return (
@@ -55,7 +25,6 @@ export default function Search({ setFirst, setBooks, setIsLoading }) {
     >
       <Input
         p={6}
-        value={keyword}
         placeholder="검색어를 입력하세요"
         boxShadow="md"
         bgColor="white"
