@@ -93,4 +93,6 @@ const recommendKeyword = [
   "미술",
   "음악",
   "체육",
+  "취미",
+  "외국어",
 ];

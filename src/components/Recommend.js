@@ -2,11 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Flex, Grid, Box, Text, Spinner, Image } from "@chakra-ui/react";
 import bookCover from "../../public/img/book-cover.png";
-const API_KEY = "AIzaSyCvt99_fFgPgG1nkMgli_HCXxD0d-MTFFo";
+
 export default function Recommend() {
   const [bookObj, setBookObj] = useState([]);
   const [loading, setLoading] = useState(false);
-  const author = "라면";
+  const author = "황순원";
 
   useEffect(() => {
     const book = async () => {
