@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Flex, Image } from "@chakra-ui/react";
 
 import useSearchBooks from "../src/hooks/useSearchBooks";
@@ -12,7 +11,7 @@ export default function Home() {
     useSearchBooks();
 
   return (
-    <Flex direction="column" align="center" pos="relative">
+    <Flex direction="column" align="center" pos="relative" w="100%">
       <Image src={bgImage.src} w="100%" maxH="2xs" objectFit="cover" />
       <Search searchBook={searchBook} handleChange={handleChange} />
       {first ? <Recommend /> : <Result books={books} isLoading={isLoading} />}

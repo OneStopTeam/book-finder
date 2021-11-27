@@ -4,7 +4,14 @@ import { Container, Text, Grid, Spinner, Box } from "@chakra-ui/react";
 
 export default function Result({ books, isLoading }) {
   return (
-    <Container maxW="80%" mt="4rem" mb="4rem" display="flex" flexDir="column">
+    <Container
+      maxW="70rem"
+      w="90%"
+      mt="4rem"
+      mb="4rem"
+      display="flex"
+      flexDir="column"
+    >
       {isLoading ? (
         <Box textAlign="center">
           <Spinner mt="10%" color="red.500" thickness="4px" size="xl" />
@@ -22,13 +29,11 @@ export default function Result({ books, isLoading }) {
             <Text color="red.500">{books.length}</Text>개의 책을 찾았어요
           </Text>
           <Grid
-            templateColumns={[
-              "repeat(1, 1fr)",
-              "repeat(1, 1fr)",
-              "repeat(2, 1fr)",
-              "repeat(2, 1fr)",
-              "repeat(3, 1fr)",
-            ]}
+            templateColumns={{
+              base: "repeat(1, 1fr)",
+              md: "repeat(2, 1fr)",
+              xl: "repeat(3, 1fr)",
+            }}
             gap={10}
           >
             {books.map((book) => (

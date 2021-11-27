@@ -33,7 +33,6 @@ export default function useSearchBooks() {
     } catch (error) {
       setKeyword("");
       setIsError(true);
-      console.log(error);
     }
   };
 

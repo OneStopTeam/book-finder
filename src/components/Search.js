@@ -21,7 +21,11 @@ export default function Search({ searchBook, handleChange }) {
       maxWidth="70rem"
       alignItems="center"
       pos="absolute"
-      top="15rem"
+      top={{
+        base: "11rem",
+        md: "15rem",
+        xl: "15rem",
+      }}
     >
       <Input
         p={6}

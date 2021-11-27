@@ -29,7 +29,7 @@ export default function ResultItem({ book }) {
 
   return (
     <Box display="flex" boxShadow="md" borderRadius="15">
-      <AspectRatio minW="10rem" ratio={3 / 4}>
+      <AspectRatio minW="9rem" ratio={3 / 4}>
         {imageLinks ? (
           <Image
             src={imageLinks.smallThumbnail}
