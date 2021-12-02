@@ -1,11 +1,13 @@
 import { Box, ListIcon } from "@chakra-ui/layout";
 import { Image, Text, List, ListItem, AspectRatio } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
+import Link from "next/link";
 
 import bookCover from "../../assets/book-cover.png";
 
 export default function ResultItem({ book }) {
   const {
+    id,
     volumeInfo: {
       imageLinks,
       title,
@@ -28,48 +30,56 @@ export default function ResultItem({ book }) {
   };
 
   return (
-    <Box display="flex" boxShadow="md" borderRadius="15">
-      <AspectRatio minW="9rem" ratio={3 / 4}>
-        {imageLinks ? (
-          <Image
-            src={imageLinks.smallThumbnail}
-            alt={title}
-            objectFit="scaleDown"
-            borderRadius="15"
-          />
-        ) : (
-          <Image
-            src={bookCover.src}
-            alt={title}
-            objectFit="scaleDown"
-            borderRadius="15"
-          />
-        )}
-      </AspectRatio>
+    <Link
+      passHref
+      href={{
+        pathname: `/detail/[id]`,
+        query: { id },
+      }}
+    >
+      <Box display="flex" boxShadow="md" borderRadius="15" cursor="pointer">
+        <AspectRatio minW="9rem" ratio={3 / 4}>
+          {imageLinks ? (
+            <Image
+              src={imageLinks.smallThumbnail}
+              alt={title}
+              objectFit="scaleDown"
+              borderRadius="15"
+            />
+          ) : (
+            <Image
+              src={bookCover.src}
+              alt={title}
+              objectFit="scaleDown"
+              borderRadius="15"
+            />
+          )}
+        </AspectRatio>
 
-      <Box p={5}>
-        <Text mb={2}>{title}</Text>
-        <Text fontSize="sm" color="gray.500">
-          {authors} / {publisher}
-        </Text>
-        <Text fontSize="sm" color="gray.500">
-          {publishedDate}
-        </Text>
-        <List mt={3}>
-          {trimCategory(categories) &&
-            trimCategory(categories).map((category) => (
-              <ListItem fontSize="sm" display="flex" alignItems="flex-start">
-                <ListIcon
-                  as={ChevronRightIcon}
-                  color="orange.600"
-                  w={5}
-                  h={5}
-                />
-                {category}
-              </ListItem>
-            ))}
-        </List>
+        <Box p={5}>
+          <Text mb={2}>{title}</Text>
+          <Text fontSize="sm" color="gray.500">
+            {authors} / {publisher}
+          </Text>
+          <Text fontSize="sm" color="gray.500">
+            {publishedDate}
+          </Text>
+          <List mt={3}>
+            {trimCategory(categories) &&
+              trimCategory(categories).map((category) => (
+                <ListItem fontSize="sm" display="flex" alignItems="flex-start">
+                  <ListIcon
+                    as={ChevronRightIcon}
+                    color="orange.600"
+                    w={5}
+                    h={5}
+                  />
+                  {category}
+                </ListItem>
+              ))}
+          </List>
+        </Box>
       </Box>
-    </Box>
+    </Link>
   );
 }
