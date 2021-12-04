@@ -1,6 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useGetBook from "../../src/hooks/useGetBook";
 
 export default function Detail() {
