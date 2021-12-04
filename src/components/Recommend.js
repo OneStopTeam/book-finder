@@ -3,9 +3,8 @@ import Link from "next/link";
 import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 import { Flex, Grid, Box, Text, Spinner, Image } from "@chakra-ui/react";
-import { relatedState } from "./stage";
-
 import bookCover from "../../public/img/book-cover.png";
+import { relatedState } from "./stage";
 
 export default function Recommend() {
   const [related, setRelated] = useRecoilState(relatedState);
@@ -34,14 +33,14 @@ export default function Recommend() {
     };
     book();
   }, [setRelated]);
-
+  console.log(related);
+  console.log(relatedState.default);
   if (loading)
     return (
       <Flex justify="center">
         <Spinner mt="10%" color="red.500" thickness="4px" size="xl" />
       </Flex>
     );
-
   return (
     <Grid templateColumns="repeat(4,1fr)" m={10}>
       {related &&

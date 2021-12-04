@@ -76,6 +76,7 @@ export default function Detail() {
                 </Box>
               </Box>
             </Flex>
+            <RelatedBook author={authors} />
           </Flex>
         </Box>
       );
