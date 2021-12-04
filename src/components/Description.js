@@ -2,10 +2,10 @@ import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button, Box, Text, Stack, Image, Flex } from "@chakra-ui/react";
+import Recommend from "./Recommend";
 
-export default function Description() {
-  const [loading, setLoading] = useState(false);
-  const [bookObj, setBookObj] = useState("");
+export default function Description({book}) {
+  console.log({book});
   const BuyButton = () => {
     return (
       <Link href={bookList[0].saleInfo.buyLink}>
