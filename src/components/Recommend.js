@@ -44,6 +44,7 @@ console.log(relatedState.default);
     );
   return (
     <Grid templateColumns="repeat(4,1fr)" m={10}>
+<<<<<<< HEAD
       {related &&
         related.map((book, index) => (
           <Link book={book} href={{pathname:`/detail/[id]`, query:{id:book.id,
@@ -86,6 +87,40 @@ console.log(relatedState.default);
             </Box>
           </Link>
         ))}
+=======
+      {related.map((value, index) => (
+        <Box key={index} position="relative" visibility="">
+          {value.volumeInfo.imageLinks ? (
+            <Image
+              h="15rem"
+              key={index}
+              alt={value.volumeInfo.title}
+              src={value.volumeInfo.imageLinks.thumbnail}
+              borderRadius="15"
+              boxShadow="md"
+            />
+          ) : (
+            <Image
+              src={bookCover.src}
+              h="15rem"
+              boxShadow="md"
+              borderRadius="15"
+            />
+          )}
+          <Text
+            p={1}
+            display="flex"
+            justify="center"
+            fontSize="0.7rem"
+            w="10rem"
+            color="#868e96"
+            position="absolute"
+          >
+            {value.volumeInfo.title}
+          </Text>
+        </Box>
+      ))}
+>>>>>>> 22fc909de6a5195d1c5a3d9b8998b4bf04f17695
     </Grid>
   );
 }

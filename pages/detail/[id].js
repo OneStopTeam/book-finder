@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Flex,Button, Box, Text, Spinner, Image } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Link from "next/link"
@@ -69,3 +70,35 @@ console.log(img);
       );
   
 }
+=======
+import { Flex, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import useGetBook from "../../src/hooks/useGetBook";
+
+export default function Detail() {
+  const router = useRouter();
+  const {
+    query: { id },
+  } = router;
+  const { bookData, isLoading, getBookData } = useGetBook();
+
+  useEffect(() => {
+    getBookData(id);
+  }, [id]);
+
+  // const {
+  //   volumeInfo: { title },
+  // } = bookData;
+
+  return isLoading ? (
+    <Text>Loading...</Text>
+  ) : (
+    <Flex direction="column" align="center" pos="relative" w="100%">
+      <Text fontSize="xl" fontWeight="bold" color="orange.600" mb={2}>
+        Book: {bookData && bookData.volumeInfo.title}
+      </Text>
+    </Flex>
+  );
+}
+>>>>>>> 22fc909de6a5195d1c5a3d9b8998b4bf04f17695
