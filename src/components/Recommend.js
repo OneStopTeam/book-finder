@@ -35,9 +35,6 @@ export default function Recommend() {
     book();
   }, [setRelated]);
 
-  console.log(related);
-  console.log(relatedState.default);
-
   if (loading)
     return (
       <Flex justify="center">

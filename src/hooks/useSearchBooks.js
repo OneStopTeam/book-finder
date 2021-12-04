@@ -5,8 +5,8 @@ export default function useSearchBooks() {
   const [first, setFirst] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [books, setBooks] = useState([]);
-  const [keyword, setKeyword] = useState("");
+  const [books, setBooks] = useState(null);
+  const [keyword, setKeyword] = useState(null);
 
   const handleChange = (event) => {
     const {
