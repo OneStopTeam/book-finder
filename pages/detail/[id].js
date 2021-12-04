@@ -1,6 +1,7 @@
 import { Flex, Button, Box, Text, Image } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import RelatedBook from "../../src/components/RelatedBook";
 import { useEffect, useState } from "react";
 
 import useGetBook from "../../src/hooks/useGetBook";
@@ -76,7 +77,7 @@ export default function Detail() {
                 </Box>
               </Box>
             </Flex>
-            <RelatedBook author={authors} />
+            <RelatedBook author={bookData.volumeInfo.authors} />
           </Flex>
         </Box>
       );
