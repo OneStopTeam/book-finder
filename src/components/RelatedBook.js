@@ -1,29 +1,11 @@
-import axios from "axios";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { Flex, Grid, Box, Text, Spinner, Image } from "@chakra-ui/react";
 import bookCover from "../../public/img/book-cover.png";
+import useRelatedBook from "../hooks/useRelatedBook";
 
 export default function Recommend({ author }) {
-  const [bookObj, setBookObj] = useState([]);
-  const [loading, setLoading] = useState(false);
-  console.log(author);
-  useEffect(() => {
-    const book = async () => {
-      setLoading(true);
-      if (author) {
-        const response = await axios.get(
-          `https://www.googleapis.com/books/v1/volumes?q=${author}`
-        );
-        setBookObj(response.data.items);
-      }
-      setLoading(false);
-    };
-    book();
-    console.log(bookObj);
-  }, []);
-
-  if (loading)
+  const { isLoading, isError, relatedBook } = useRelatedBook(author);
+  if (isLoading)
     return (
       <Flex justify="center">
         <Spinner mt="10%" color="red.500" thickness="4px" size="xl" />
@@ -31,23 +13,13 @@ export default function Recommend({ author }) {
     );
   return (
     <Grid templateColumns="repeat(4,1fr)" m={10}>
-      {bookObj.map((book, index) => (
+      {relatedBook.map((book, index) => (
         <Link
           book={book}
           href={{
             pathname: `/detail/[id]`,
             query: {
               id: book.id,
-              title: book.volumeInfo.title,
-              buylink: book.saleInfo.buyLink,
-              description: book.volumeInfo.description,
-              preview: book.volumeInfo.previewLink,
-              thumbnail: book.volumeInfo.imageLinks
-                ? book.volumeInfo.imageLinks.thumbnail
-                : bookCover.src,
-              date: book.volumeInfo.publishedDate,
-              publisher: book.volumeInfo.publisher,
-              authors: book.volumeInfo.authors,
             },
           }}
         >
@@ -58,7 +30,7 @@ export default function Recommend({ author }) {
                 key={index}
                 alt={book.volumeInfo.title}
                 src={book.volumeInfo.imageLinks.thumbnail}
-                borderRadius="15"
+                borderRadius="0.5rem"
                 boxShadow="md"
               />
             ) : (
@@ -66,7 +38,7 @@ export default function Recommend({ author }) {
                 src={bookCover.src}
                 h="15rem"
                 boxShadow="md"
-                borderRadius="15"
+                borderRadius="0.5rem"
               />
             )}
             <Text
