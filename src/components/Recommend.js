@@ -1,65 +1,27 @@
-import axios from "axios";
 import Link from "next/link";
-import { useRecoilState } from "recoil";
-import { useEffect, useState } from "react";
 import { Flex, Grid, Box, Text, Spinner, Image } from "@chakra-ui/react";
 import bookCover from "../../public/img/book-cover.png";
-import { relatedState } from "./stage";
+import useRecommendBook from "../hooks/useRecommendBook";
 
 export default function Recommend() {
-  const [related, setRelated] = useRecoilState(relatedState);
-  const [loading, setLoading] = useState(false);
-  const [isError, setIsError] = useState(null);
-  function randomItem(a) {
-    return a[Math.floor(Math.random() * a.length)];
-  }
-
-  useEffect(() => {
-    const book = async () => {
-      setLoading(true);
-      try {
-        if (randomItem(recommendKeyword)) {
-          const response = await axios.get(
-            `https://www.googleapis.com/books/v1/volumes?q=${randomItem(
-              recommendKeyword
-            )}`
-          );
-          setRelated(response.data.items);
-          setLoading(false);
-        }
-      } catch (error) {
-        setIsError(true);
-      }
-    };
-    book();
-  }, [setRelated]);
-
-  if (loading)
+  const { isLoading, isError, recommend } = useRecommendBook();
+  if (isLoading)
     return (
       <Flex justify="center">
         <Spinner mt="10%" color="red.500" thickness="4px" size="xl" />
       </Flex>
     );
+
   return (
     <Grid templateColumns="repeat(4,1fr)" m={10}>
-      {related &&
-        related.map((book, index) => (
+      {recommend &&
+        recommend.map((book, index) => (
           <Link
             book={book}
             href={{
               pathname: `/detail/[id]`,
               query: {
                 id: book.id,
-                title: book.volumeInfo.title,
-                buylink: book.saleInfo.buyLink,
-                description: book.volumeInfo.description,
-                preview: book.volumeInfo.previewLink,
-                img: book.volumeInfo.imageLinks
-                  ? book.volumeInfo.imageLinks.small
-                  : bookCover.src,
-                date: book.volumeInfo.publishedDate,
-                publisher: book.volumeInfo.publisher,
-                authors: book.volumeInfo.authors,
               },
             }}
           >
@@ -69,7 +31,7 @@ export default function Recommend() {
                   h="15rem"
                   alt={book.volumeInfo.title}
                   src={book.volumeInfo.imageLinks.thumbnail}
-                  borderRadius="15"
+                  borderRadius="0.5rem"
                   boxShadow="md"
                 />
               ) : (
@@ -97,28 +59,3 @@ export default function Recommend() {
     </Grid>
   );
 }
-
-const recommendKeyword = [
-  "시",
-  "소설",
-  "유아",
-  "에세이",
-  "경제",
-  "여행",
-  "사회",
-  "컴퓨터",
-  "뷰티",
-  "건강",
-  "전공",
-  "만화",
-  "역사",
-  "문화",
-  "경영",
-  "세계",
-  "기술",
-  "미술",
-  "음악",
-  "체육",
-  "취미",
-  "외국어",
-];
