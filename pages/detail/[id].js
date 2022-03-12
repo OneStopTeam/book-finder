@@ -1,11 +1,10 @@
-import { Flex, Button, Box, Text, Image } from "@chakra-ui/react";
+import { Text, Image, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import RelatedBook from "../../src/components/RelatedBook";
-import { useEffect, useState } from "react";
-
+import { useEffect } from "react";
 import useGetBook from "../../src/hooks/useGetBook";
-
+import bgImage from "assets/book-bg.jpg";
+import Description from "../../src/components/Description";
+import Search from "../../src/components/Search";
 export default function Detail() {
   const {
     query: { id },
@@ -16,70 +15,19 @@ export default function Detail() {
     getBookData(id);
   }, [id]);
 
-  const BuyButton = ({ buyLink }) => {
-    if (buyLink) {
-      return (
-        <Link href={buyLink}>
-          <Button m={1}>구매하기</Button>
-        </Link>
-      );
-    } else {
-      return <Button m={1}>구매하기</Button>;
-    }
-  };
-
-  const PreviewButton = ({ previewLink }) => {
-    if (previewLink) {
-      return (
-        <Link href={previewLink}>
-          <Button m={1}>미리보기</Button>
-        </Link>
-      );
-    } else {
-      <Button m={1}>미리보기</Button>;
-    }
-  };
-
   const showData = () => {
     if (bookData !== null) {
       return (
-        <Box>
-          <Flex borderRdius="15" justify="center" direction="column">
-            <Flex direction="row" p={20} m="1rem" justify="center">
-              <Box>
-                <Image
-                  boxShadow="md"
-                  borderRadius="1rem"
-                  src={bookData.volumeInfo.imageLinks.thumbnail}
-                  p={1}
-                />
-                <Flex m={2} justify="center">
-                  <BuyButton buyLink={bookData.saleInfo.buyLink} />
-                  <PreviewButton
-                    previewLink={bookData.volumeInfo.previewLink}
-                  />
-                </Flex>
-              </Box>
-              <Box m={3}>
-                <Text fontSize="2rem" fontWeight="bolder">
-                  {bookData.volumeInfo.title}
-                </Text>
-                <Text m={1} color="#868e96">
-                  {bookData.volumeInfo.authors || "알 수 없음"}
-                  {bookData.volumeInfo.publisher || " 알 수 없음"} |{" "}
-                  {bookData.volumeInfo.publishedDate || " 날짜 없음"}
-                </Text>
-                <Box m={2}>
-                  <Text m={1}>책소개</Text>
-                  <Box h="17rem" maxW="40rem" overflow="auto">
-                    {bookData.volumeInfo.description || "없음"}
-                  </Box>
-                </Box>
-              </Box>
-            </Flex>
-            <RelatedBook author={bookData.volumeInfo.authors} />
-          </Flex>
-        </Box>
+        <Flex direction="column" align="center" pos="relative" w="100%">
+          <Image
+            opacity={0.8}
+            src={bgImage.src}
+            w="100%"
+            maxH="2xs"
+            objectFit="cover"
+          />
+          <Description bookData={bookData} />
+        </Flex>
       );
     } else {
       return <Text>Nothing...</Text>;
