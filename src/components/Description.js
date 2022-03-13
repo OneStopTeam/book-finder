@@ -1,137 +1,193 @@
-import axios from "axios";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { Button, Box, Text, Stack, Image, Flex } from "@chakra-ui/react";
-import Recommend from "./Recommend";
+import {
+  Button,
+  Box,
+  Text,
+  Wrap,
+  Heading,
+  Image,
+  List,
+  ListItem,
+  ListIcon,
+  useToast,
+  Flex,
+} from "@chakra-ui/react";
+import RelatedBook from "../../src/components/RelatedBook";
+import { ChevronRightIcon } from "@chakra-ui/icons";
+import StarRating from "./StarRatings";
+import bookCover from "../../public/img/book-cover.png";
 
-export default function Description({book}) {
-  console.log({book});
-  const BuyButton = () => {
-    return (
-      <Link href={bookList[0].saleInfo.buyLink}>
-        <Button m={1}>구매하기</Button>
-      </Link>
-    );
+export default function Description({ bookData }) {
+  const toast = useToast();
+  const BuyButton = ({ buyLink }) => {
+    if (buyLink) {
+      return (
+        <Link href={buyLink} colorScheme="orange">
+          <Button m={1}>구매하기</Button>
+        </Link>
+      );
+    } else {
+      return (
+        <Button
+          m={1}
+          colorScheme="orange"
+          onClick={() =>
+            toast({
+              position: "top",
+              status: "warning",
+              description: "구매링크가 존재하지 않습니다.",
+              isClosable: true,
+            })
+          }
+        >
+          구매하기
+        </Button>
+      );
+    }
   };
 
-  const PreviewButton = () => {
-    return (
-      <Link href={bookList[0].volumeInfo.previewLink}>
-        <Button m={1}>미리보기</Button>
-      </Link>
-    );
+  const PreviewButton = ({ previewLink }) => {
+    if (previewLink) {
+      return (
+        <Link href={previewLink}>
+          <Button m={1} colorScheme="orange">
+            미리보기
+          </Button>
+        </Link>
+      );
+    } else {
+      <Button
+        m={1}
+        colorScheme="orange"
+        onClick={() =>
+          toast({
+            position: "top",
+            status: "warning",
+            description: "미리보기 링크가 존재하지 않습니다.",
+            isClosable: true,
+          })
+        }
+      >
+        미리보기
+      </Button>;
+    }
   };
 
-  return (
-    <Box>
-      <Flex borderRdius="15" justify="center" direction="column">
-        <Flex direction="row" p={20} m="1rem" justify="center">
-          <Box>
-            <Image
-              boxShadow="md"
-              borderRadius="1rem"
-              src={bookList[0].volumeInfo.imageLinks.small}
-              p={1}
-            />
-            <Flex m={2} justify="center">
-              <BuyButton />
-              <PreviewButton />
-            </Flex>
-          </Box>
-          <Box m={3}>
-            <Text fontSize="2rem" fontWeight="bolder">
-              {bookList[0].volumeInfo.title}
-            </Text>
-            <Text m={1} color="#868e96">
-              {bookList[0].volumeInfo.authors[0]},
-              {bookList[0].volumeInfo.authors[1]} |
-              {bookList[0].volumeInfo.publisher} |
-              {bookList[0].volumeInfo.publishedDate}
-            </Text>
-            <Box m={2}>
-              <Text m={1}>책소개</Text>
-              <Box h="17rem" maxW="40rem" overflow="auto">
-                {bookList[0].volumeInfo.description}
-                {bookList[0].volumeInfo.description}
-                {bookList[0].volumeInfo.description}
-                {bookList[0].volumeInfo.description}
-                {bookList[0].volumeInfo.description}
-                {bookList[0].volumeInfo.description}
-                {bookList[0].volumeInfo.description}
-                {bookList[0].volumeInfo.description}
+  const trimCategory = (categories) => {
+    if (categories) {
+      const list = categories[0].split("/");
+      const trimed = [];
+      for (let i = 0; i < list.length; i++) {
+        trimed.push(list[i].trim());
+      }
+      return trimed;
+    }
+  };
+
+  if (bookData !== null) {
+    return (
+      <Box
+        boxShadow="base"
+        pos="absolute"
+        bgColor="white"
+        mt="12rem"
+        borderWidth="1px"
+        borderRadius="lg"
+        maxW="70rem"
+        minW="40rem"
+      >
+        <Wrap justify="center">
+          <Flex borderRdius="15" justify="center" direction="column">
+            <Flex m="2rem" justify="center">
+              <Flex direction="column" justify="center">
+                {bookData.volumeInfo.imageLinks ? (
+                  <Image
+                    boxShadow="md"
+                    borderRadius="0.5rem"
+                    src={bookData.volumeInfo.imageLinks.thumbnail}
+                  />
+                ) : (
+                  <Image src={bookCover.src} boxShadow="md" borderRadius="15" />
+                )}
+                <Flex mt={2} justify="center">
+                  <BuyButton buyLink={bookData.saleInfo.buyLink} />
+                  <PreviewButton
+                    previewLink={bookData.volumeInfo.previewLink}
+                  />
+                </Flex>
+              </Flex>
+              <Box ml="3rem">
+                <Heading fontSize="2rem" fontWeight="bolder">
+                  {bookData.volumeInfo.title}
+                </Heading>
+                {bookData.volumeInfo.averageRating ? (
+                  <Flex mb={2} alignItems="end">
+                    <StarRating
+                      voteAverage={bookData.volumeInfo.averageRating}
+                    />
+                    <Text ml="0.5rem" color="orange">
+                      {bookData.volumeInfo.averageRating}
+                    </Text>
+                  </Flex>
+                ) : (
+                  ""
+                )}
+                <Flex alignItems="center">
+                  <Text fontSize="0.9rem" color="#868e96" mr="1rem">
+                    작가
+                  </Text>
+                  <Text>{bookData.volumeInfo.authors || "정보 없음"} </Text>
+                </Flex>
+                <Flex alignItems="center">
+                  <Text fontSize="0.9rem" color="#868e96" mr="1rem">
+                    출판사
+                  </Text>
+                  <Text>{bookData.volumeInfo.publisher || " 정보 없음"} </Text>
+                </Flex>
+                <Flex alignItems="center">
+                  <Text fontSize="0.9rem" color="#868e96" mr="1rem">
+                    출판 날짜
+                  </Text>
+                  <Text>
+                    {bookData.volumeInfo.publishedDate || " 정보 없음"}
+                  </Text>
+                </Flex>
+
+                <Text fontSize="0.9rem" color="#868e96" mr="1rem">
+                  장르
+                </Text>
+                <List>
+                  {trimCategory(bookData.volumeInfo.categories) &&
+                    trimCategory(bookData.volumeInfo.categories).map(
+                      (category) => (
+                        <ListItem
+                          fontSize="1rem"
+                          display="flex"
+                          alignItems="center"
+                        >
+                          <ListIcon
+                            as={ChevronRightIcon}
+                            color="orange.600"
+                            w={5}
+                            h={5}
+                          />
+                          {category}
+                        </ListItem>
+                      )
+                    )}
+                </List>
               </Box>
+            </Flex>
+            <Text ml="2rem" fontSize="1.2rem">
+              책소개
+            </Text>
+            <Box ml="2rem" mr="2rem">
+              {bookData.volumeInfo.description || "없음"}
             </Box>
-          </Box>
-        </Flex>
-      </Flex>
-    </Box>
-  );
+          </Flex>
+        </Wrap>
+        <RelatedBook author={bookData.volumeInfo.authors} />
+      </Box>
+    );
+  }
 }
-
-const bookList = [
-  {
-    volumeInfo: {
-      title: "The Google story",
-      authors: ["David A. Vise", "Mark Malseed"],
-      publisher: "Random House Digital, Inc.",
-      publishedDate: "2005-11-15",
-      description:
-        "Here is the story behind one of the most remarkable Internet successes of our time. Based on scrupulous research and extraordinary access to Google",
-      pageCount: 207,
-      mainCategory: "Business & Economics / Entrepreneurship",
-      averageRating: 3.5,
-      ratingsCount: 136,
-      previewLink:
-        "http://books.google.co.kr/books?id=WxoaAQAAIAAJ&q=inauthor%3D%ED%99%A9%EC%88%9C%EC%9B%90&dq=inauthor%3D%ED%99%A9%EC%88%9C%EC%9B%90&hl=&cd=8&source=gbs_api",
-      imageLinks: {
-        smallThumbnail:
-          "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
-        thumbnail:
-          "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        small:
-          "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=2&edge=curl&source=gbs_api",
-        medium:
-          "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=3&edge=curl&source=gbs_api",
-        large:
-          "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=4&edge=curl&source=gbs_api",
-        extraLarge:
-          "https://books.google.com/books?id=zyTCAlFPjgYC&printsec=frontcover&img=1&zoom=6&edge=curl&source=gbs_api",
-      },
-      infoLink:
-        "https://books.google.com/books?id=zyTCAlFPjgYC&ie=ISO-8859-1&source=gbs_api",
-      canonicalVolumeLink:
-        "https://books.google.com/books/about/The_Google_story.html?id=zyTCAlFPjgYC",
-    },
-    saleInfo: {
-      country: "US",
-      saleability: "FOR_SALE",
-      isEbook: true,
-      listPrice: {
-        amount: 11.99,
-        currencyCode: "USD",
-      },
-      retailPrice: {
-        amount: 11.99,
-        currencyCode: "USD",
-      },
-      buyLink:
-        "https://books.google.com/books?id=zyTCAlFPjgYC&ie=ISO-8859-1&buy=&source=gbs_api",
-    },
-    accessInfo: {
-      country: "US",
-      viewability: "PARTIAL",
-      embeddable: true,
-      publicDomain: false,
-      textToSpeechPermission: "ALLOWED_FOR_ACCESSIBILITY",
-      epub: {
-        isAvailable: true,
-        acsTokenLink:
-          "https://books.google.com/books/download/The_Google_story-sample-epub.acsm?id=zyTCAlFPjgYC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api",
-      },
-      pdf: {
-        isAvailable: false,
-      },
-      accessViewStatus: "SAMPLE",
-    },
-  },
-];
