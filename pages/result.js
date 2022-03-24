@@ -13,6 +13,12 @@ export default function Result() {
     fetchResult(keyword)
   );
 
+  if (isError) {
+    return (
+      <Error message="도서 정보를 가져오지 못했습니다. 다시 시도해 주세요 😂" />
+    );
+  }
+
   return (
     <>
       <Search />

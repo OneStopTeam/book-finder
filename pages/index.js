@@ -7,7 +7,6 @@ export default function Home() {
   return (
     <Flex direction="column" align="center" pos="relative" w="100%">
       <Search />
-      <Error message="Error message" />
     </Flex>
   );
 }
