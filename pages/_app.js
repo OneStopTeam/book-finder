@@ -1,13 +1,7 @@
 import * as React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { RecoilRoot } from "recoil";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import theme from "../src/theme";
 import Layout from "../src/components/Layout/Layout";

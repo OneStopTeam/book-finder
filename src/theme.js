@@ -2,7 +2,6 @@ import { extendTheme } from "@chakra-ui/react";
 
 export const theme = extendTheme({
   config: {
-    initialColorMode: "light",
     useSystemColorMode: false,
   },
   styles: {
@@ -12,7 +11,6 @@ export const theme = extendTheme({
         bg: "#FAFFFF",
         color: "#292626",
       },
-      // styles for the `a`
     },
   },
   colors: {
