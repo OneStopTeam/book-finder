@@ -3,12 +3,12 @@ import { useRouter } from "next/dist/client/router";
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 
-import { bookState } from "../atom";
+import { valueState } from "../atom";
 
 export default function Search() {
   const router = useRouter();
 
-  const setSearchValue = useSetRecoilState(bookState);
+  const setSearchValue = useSetRecoilState(valueState);
 
   const {
     register,
@@ -17,8 +17,10 @@ export default function Search() {
   } = useForm();
 
   const onSubmit = (data) => {
-    setSearchValue(data.book);
-    router.push("/result");
+    setSearchValue(data.value);
+    if (router.pathname === "/") {
+      router.push("/result");
+    }
   };
 
   return (
@@ -26,10 +28,10 @@ export default function Search() {
       {/* register your input into the hook by invoking the "register" function */}
       <input
         placeholder="찾으시는 책을 검색하세요"
-        {...register("book", { required: true })}
+        {...register("value", { required: true })}
       />
       {/* errors will return when field validation fails  */}
-      {errors.book && <span>검색어를 입력하세요 📙</span>}
+      {errors.value && <span>검색어를 입력하세요 📙</span>}
       <button>
         <SearchIcon />
       </button>

@@ -2,10 +2,11 @@ import { Text } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
 
 import Search from "src/components/Search";
-import { bookState } from "../src/atom";
+import { valueState } from "../src/atom";
+import SearchedBook from "../src/components/Books/SearchedBook";
 
 export default function Result() {
-  const [books, setBooks] = useRecoilState(bookState);
+  const [value, setValue] = useRecoilState(valueState);
 
   return (
     <>
