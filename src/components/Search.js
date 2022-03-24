@@ -20,6 +20,8 @@ export default function Search({ searchBook, handleChange }) {
       width="80%"
       maxWidth="70rem"
       alignItems="center"
+      border="1px"
+      borderColor="accent"
       pos="absolute"
       top={{
         base: "11rem",
@@ -29,10 +31,9 @@ export default function Search({ searchBook, handleChange }) {
     >
       <Input
         p={6}
-        placeholder="검색어를 입력하세요"
+        placeholder="찾으시는 책을 검색하세요"
         boxShadow="md"
         bgColor="white"
-        focusBorderColor="orange.600"
         onChange={(event) => handleChange(event)}
         onKeyPress={(event) => pressEnter(event)}
       />
