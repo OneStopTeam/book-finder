@@ -1,11 +1,15 @@
 import { SearchIcon } from "@chakra-ui/icons";
+import { useRouter } from "next/dist/client/router";
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 
 import { bookState } from "../atom";
 
 export default function Search() {
-  const setBook = useSetRecoilState(bookState);
+  const router = useRouter();
+
+  const setSearchValue = useSetRecoilState(bookState);
+
   const {
     register,
     handleSubmit,
@@ -13,7 +17,8 @@ export default function Search() {
   } = useForm();
 
   const onSubmit = (data) => {
-    setBook(data.book);
+    setSearchValue(data.book);
+    router.push("/result");
   };
 
   return (
