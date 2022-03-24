@@ -1,14 +1,18 @@
-import { Text } from "@chakra-ui/react";
+import { Image, Text } from "@chakra-ui/react";
 
-export default function SearchedBook(book) {
+export default function SearchedBook({ book }) {
+  const {
+    volumeInfo: { imageLinks, title, authors },
+  } = book;
+
   return (
     <>
       <Image
-        src={book.volumeInfo.imageLinks.smallThumbnail}
-        alt={book.volumeInfo.title}
+        src={imageLinks ? imageLinks.smallThumbnail : "img/book-cover.png"}
+        alt={title}
       />
-      <Text>{book.volumeInfo.title}</Text>
-      <Text>{book.volumeInfo.authors.join(", ")}</Text>
+      <Text>{title}</Text>
+      <Text>{authors.join(", ")}</Text>
     </>
   );
 }
