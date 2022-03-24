@@ -1,50 +1,33 @@
-import { Input, IconButton, FormControl } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
+import { useForm } from "react-hook-form";
+import { useSetRecoilState } from "recoil";
 
-export default function Search({ searchBook, handleChange }) {
-  const pressEnter = (event) => {
-    const { key } = event;
-    if (key === "Enter") {
-      searchBook();
-    }
-  };
+import { bookState } from "../atom";
 
-  const clickButton = () => {
-    searchBook();
+export default function Search() {
+  const setBook = useSetRecoilState(bookState);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    setBook(data.book);
   };
 
   return (
-    <FormControl
-      id="keyword"
-      display="flex"
-      width="80%"
-      maxWidth="70rem"
-      alignItems="center"
-      border="1px"
-      borderColor="accent"
-      pos="absolute"
-      top={{
-        base: "11rem",
-        md: "15rem",
-        xl: "15rem",
-      }}
-    >
-      <Input
-        p={6}
+    <form onSubmit={handleSubmit(onSubmit)}>
+      {/* register your input into the hook by invoking the "register" function */}
+      <input
         placeholder="찾으시는 책을 검색하세요"
-        boxShadow="md"
-        bgColor="white"
-        onChange={(event) => handleChange(event)}
-        onKeyPress={(event) => pressEnter(event)}
+        {...register("book", { required: true })}
       />
-      <IconButton
-        boxShadow="md"
-        size="lg"
-        colorScheme="orange"
-        aria-label="Search database"
-        icon={<SearchIcon />}
-        onClick={clickButton}
-      />
-    </FormControl>
+      {/* errors will return when field validation fails  */}
+      {errors.book && <span>검색어를 입력하세요 📙</span>}
+      <button>
+        <SearchIcon />
+      </button>
+    </form>
   );
 }
