@@ -3,12 +3,12 @@ import { useRouter } from "next/dist/client/router";
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 
-import { valueState } from "../atom";
+import { keywordState } from "../atom";
 
 export default function Search() {
   const router = useRouter();
 
-  const setSearchValue = useSetRecoilState(valueState);
+  const setKeyword = useSetRecoilState(keywordState);
 
   const {
     register,
@@ -17,7 +17,9 @@ export default function Search() {
   } = useForm();
 
   const onSubmit = (data) => {
-    setSearchValue(data.value);
+    setKeyword(data.value);
+
+    // home에서 검색했으면 result 페이지로 이동
     if (router.pathname === "/") {
       router.push("/result");
     }
