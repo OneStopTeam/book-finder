@@ -1,7 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 
-import Search from "src/components/Search";
-import Error from "../src/components/Error";
+import Search from "../src/components/Search";
 
 export default function Home() {
   return (

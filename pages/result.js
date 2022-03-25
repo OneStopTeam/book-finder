@@ -2,7 +2,7 @@ import { Text } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 
-import Search from "src/components/Search";
+import Search from "../src/components/Search";
 import { keywordState } from "../src/atom";
 import SearchedBook from "../src/components/Books/SearchedBook";
 import { fetchResult } from "../src/fetching";
