@@ -1,15 +1,9 @@
 import { SearchIcon } from "@chakra-ui/icons";
-import {
-  Flex,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  Text,
-} from "@chakra-ui/react";
+import { Input, InputGroup, InputRightElement, Text } from "@chakra-ui/react";
 import { useRouter } from "next/dist/client/router";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
 import { keywordState } from "../atom";
@@ -28,7 +22,14 @@ export default function Search() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  useEffect(() => {
+    // home으로 오면 검색어 초기화
+    if (router.pathname === "/") {
+      setKeyword("");
+    }
+  }, []);
+
+  const onSubmit = () => {
     // home에서 검색했으면 result 페이지로 이동
     if (router.pathname === "/") {
       router.push("/result");
