@@ -1,4 +1,4 @@
-import { Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 
@@ -21,7 +21,12 @@ export default function Result() {
   }
 
   return (
-    <>
+    <Flex
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+    >
       <Search />
       {!isLoading && data && (
         <>
@@ -41,6 +46,6 @@ export default function Result() {
           ))}
         </>
       )}
-    </>
+    </Flex>
   );
 }
