@@ -8,9 +8,6 @@ export default function Footer() {
       alignItems="center"
       justifyContent="space-between"
       p="3rem"
-      pos="fixed"
-      bottom={0}
-      w="100%"
     >
       <Text>Copyright&copy; OneStop</Text>
       <Image w="8rem" src="/logo-white.png" alt="책잉" />

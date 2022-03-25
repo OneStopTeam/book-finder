@@ -1,18 +1,20 @@
 import { Box, Center, Flex, Text } from "@chakra-ui/react";
 import { useQuery } from "react-query";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import Search from "../src/components/Search";
 import { keywordState } from "../src/atom";
 import SearchedBook from "../src/components/Books/SearchedBook";
 import { fetchResult } from "../src/fetching";
+import useWindowDimensions from "../src/hooks/useWindowDimensions";
 
 export default function Result() {
-  const [keyword, setKeyword] = useRecoilState(keywordState);
+  const keyword = useRecoilValue(keywordState);
   // keyword로 구글 도서 정보 가져오기
   const { data, isLoading, isError } = useQuery(keyword, () =>
     fetchResult(keyword)
   );
+  const { height: windowHeight } = useWindowDimensions();
 
   if (isError) {
     return (
@@ -58,7 +60,7 @@ export default function Result() {
             </Flex>
           ) : (
             // 검색 결과가 없으면
-            <Center mt="10rem" color="grey">
+            <Center my={windowHeight * 0.4} color="grey">
               도서 정보가 없습니다.
             </Center>
           )}
