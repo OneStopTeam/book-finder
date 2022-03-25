@@ -9,6 +9,7 @@ import { fetchResult } from "../src/fetching";
 
 export default function Result() {
   const [keyword, setKeyword] = useRecoilState(keywordState);
+  // keyword로 구글 도서 정보 가져오기
   const { data, isLoading, isError } = useQuery(keyword, () =>
     fetchResult(keyword)
   );
