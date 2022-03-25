@@ -1,4 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
+import { useRecoilBridgeAcrossReactRoots_UNSTABLE } from "recoil";
 
 const theme = extendTheme({
   config: {
@@ -24,6 +25,7 @@ const theme = extendTheme({
     black: "#292626",
     accent: "#F74900",
     white: "#FAFFFF",
+    grey: "rgba(41, 38, 38, 0.8)",
   },
 });
 

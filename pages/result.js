@@ -16,7 +16,7 @@ export default function Result() {
 
   if (isError) {
     return (
-      <Error message="도서 정보를 가져오지 못했습니다. 다시 시도해 주세요 😂" />
+      <Error message="Error: 도서 정보를 가져오지 못했습니다. 다시 시도해 주세요 😂" />
     );
   }
 
@@ -50,13 +50,17 @@ export default function Result() {
             )
           </Text>
           {data ? (
+            // 검색 결과가 있으면
             <Flex alignItems="center" justifyContent="center" wrap="wrap">
               {data.map((book) => (
                 <SearchedBook book={book} />
               ))}
             </Flex>
           ) : (
-            <Center>도서 정보가 없습니다.</Center>
+            // 검색 결과가 없으면
+            <Center mt="10rem" color="grey">
+              도서 정보가 없습니다.
+            </Center>
           )}
         </Box>
       </Flex>
