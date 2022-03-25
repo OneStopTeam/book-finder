@@ -4,6 +4,12 @@ const theme = extendTheme({
   config: {
     useSystemColorMode: false,
   },
+
+  fonts: {
+    body: "SuncheonR",
+    heading: "Jal_Haru",
+  },
+
   styles: {
     global: {
       // styles for the `body`
@@ -13,6 +19,7 @@ const theme = extendTheme({
       },
     },
   },
+
   colors: {
     black: "#292626",
     accent: "#F74900",
