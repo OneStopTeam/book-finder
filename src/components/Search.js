@@ -42,7 +42,7 @@ export default function Search() {
           borderColor="accent"
           borderRadius="2rem"
           w={windowWidth * 0.8}
-          maxW="35rem"
+          maxW="30rem"
         />
         <InputRightElement
           children={<SearchIcon mr=".5rem" color="accent" />}

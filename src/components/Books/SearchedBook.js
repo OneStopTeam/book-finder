@@ -1,4 +1,4 @@
-import { Flex, Image, Stack, Text } from "@chakra-ui/react";
+import { GridItem, Image, Stack, Text } from "@chakra-ui/react";
 import BuyButton from "../Buttons/BuyButton";
 import { IoLogoGooglePlaystore } from "react-icons/io5";
 
@@ -9,7 +9,7 @@ export default function SearchedBook({ book }) {
   } = book;
 
   return (
-    <Flex alignItems="center" justifyContent="center">
+    <GridItem display="flex" alignItems="center" justifyContent="center">
       {/* 책 표지 */}
       <Image
         src={imageLinks ? imageLinks.smallThumbnail : "img/book-cover.png"}
@@ -20,7 +20,7 @@ export default function SearchedBook({ book }) {
         objectFit="cover"
       />
       {/* 책 정보 */}
-      <Stack spacing={2}>
+      <Stack spacing={2} w="18rem">
         <Text fontSize="xl" as="b" isTruncated>
           {title}
         </Text>
@@ -39,6 +39,6 @@ export default function SearchedBook({ book }) {
         </Text>
         <BuyButton link={buyLink} isDisabled={retailPrice ? false : true} />
       </Stack>
-    </Flex>
+    </GridItem>
   );
 }

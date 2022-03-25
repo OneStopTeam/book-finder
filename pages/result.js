@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Divider, Flex, Grid, Text } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 
@@ -29,22 +29,36 @@ export default function Result() {
     >
       <Search />
       {!isLoading && data && (
-        <>
-          <Text display="flex">
-            "
+        <Flex
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Text
+            display="flex"
+            alignItems="center"
+            w="100%"
+            my="2rem"
+            fontSize="xl"
+            as="b"
+          >
+            '
             <Text color="accent" as="b">
               {keyword}
             </Text>
-            "에 대해 &nbsp;
+            ' 검색 결과 (
             <Text color="accent" as="b">
-              {data.length}개
+              {data.length}
             </Text>
-            의 책이 검색됐어요
+            )
           </Text>
-          {data.map((book) => (
-            <SearchedBook book={book} />
-          ))}
-        </>
+          <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+            {data.map((book) => (
+              <SearchedBook book={book} />
+            ))}
+          </Grid>
+        </Flex>
       )}
     </Flex>
   );
