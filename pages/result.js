@@ -1,4 +1,4 @@
-import { Divider, Flex, Grid, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Text } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import { useRecoilState } from "recoil";
 
@@ -20,25 +20,21 @@ export default function Result() {
     );
   }
 
-  return (
-    <Flex
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Search />
-      {!isLoading && data && (
-        <Flex
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
-        >
+  if (isLoading) {
+    return <Center>Loading...</Center>;
+  } else {
+    return (
+      <Flex
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Search />
+        <Box w="90%" maxW="55rem">
           <Text
             display="flex"
             alignItems="center"
-            w="100%"
             my="2rem"
             fontSize="xl"
             as="b"
@@ -49,17 +45,21 @@ export default function Result() {
             </Text>
             ' 검색 결과 (
             <Text color="accent" as="b">
-              {data.length}
+              {data ? data.length : "0"}
             </Text>
             )
           </Text>
-          <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-            {data.map((book) => (
-              <SearchedBook book={book} />
-            ))}
-          </Grid>
-        </Flex>
-      )}
-    </Flex>
-  );
+          {data ? (
+            <Flex alignItems="center" justifyContent="center" wrap="wrap">
+              {data.map((book) => (
+                <SearchedBook book={book} />
+              ))}
+            </Flex>
+          ) : (
+            <Center>도서 정보가 없습니다.</Center>
+          )}
+        </Box>
+      </Flex>
+    );
+  }
 }

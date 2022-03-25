@@ -59,4 +59,5 @@ const StyledForm = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  align-self: center;
 `;
