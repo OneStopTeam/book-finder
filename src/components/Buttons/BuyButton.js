@@ -10,6 +10,7 @@ export default function BuyButton({ link, isDisabled }) {
 
   return (
     <Button
+      maxW="5rem"
       bg="accent"
       color="white"
       size="sm"
