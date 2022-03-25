@@ -24,7 +24,17 @@ export default function Result() {
       <Search />
       {!isLoading && data && (
         <>
-          <Text>{data.length}개의 책이 검색됐어요</Text>
+          <Text display="flex">
+            "
+            <Text color="accent" as="b">
+              {keyword}
+            </Text>
+            "에 대해 &nbsp;
+            <Text color="accent" as="b">
+              {data.length}개
+            </Text>
+            의 책이 검색됐어요
+          </Text>
           {data.map((book) => (
             <SearchedBook book={book} />
           ))}
