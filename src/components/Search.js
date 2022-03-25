@@ -1,14 +1,26 @@
 import { SearchIcon } from "@chakra-ui/icons";
+import {
+  Flex,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Text,
+} from "@chakra-ui/react";
 import { useRouter } from "next/dist/client/router";
 import { useForm } from "react-hook-form";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import styled from "styled-components";
 
 import { keywordState } from "../atom";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 export default function Search() {
   const router = useRouter();
 
-  const setKeyword = useSetRecoilState(keywordState);
+  const { width: windowWidth } = useWindowDimensions();
+
+  const [keyword, setKeyword] = useRecoilState(keywordState);
 
   const {
     register,
@@ -17,26 +29,54 @@ export default function Search() {
   } = useForm();
 
   const onSubmit = (data) => {
-    setKeyword(data.value);
-
     // home에서 검색했으면 result 페이지로 이동
     if (router.pathname === "/") {
       router.push("/result");
     }
   };
 
+  const handleChange = (event) => {
+    setKeyword(event.target.value);
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {/* register your input into the hook by invoking the "register" function */}
-      <input
-        placeholder="찾으시는 책을 검색하세요"
-        {...register("value", { required: true })}
-      />
+    <StyledForm onSubmit={handleSubmit(onSubmit)}>
+      <InputGroup>
+        {/* register your input into the hook by invoking the "register" function */}
+        <Input
+          placeholder="찾으시는 책을 검색하세요"
+          {...register("value", { required: true })}
+          border="2px"
+          borderColor="accent"
+          borderRadius="2rem"
+          w={windowWidth * 0.8}
+          maxW="35rem"
+          value={keyword}
+          onChange={handleChange}
+        />
+        <InputRightElement
+          children={
+            <StyledButton>
+              <SearchIcon color="accent" />
+            </StyledButton>
+          }
+        />
+      </InputGroup>
       {/* errors will return when field validation fails  */}
-      {errors.value && <span>검색어를 입력하세요 📙</span>}
-      <button>
-        <SearchIcon />
-      </button>
-    </form>
+      {errors.value && <Text>검색어를 입력하세요 📙</Text>}
+    </StyledForm>
   );
 }
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledButton = styled.button`
+  display: flex;
+  align-items: center;
+  padding-right: 0.5rem;
+`;
