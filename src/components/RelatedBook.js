@@ -1,9 +1,16 @@
 import Link from "next/link";
+import SimpleCard from "./SimpleCard";
 import { Flex, Grid, Box, Text, Spinner, Image } from "@chakra-ui/react";
 import bookCover from "../../public/img/book-cover.png";
 import useRelatedBook from "../hooks/useRelatedBook";
 
-export default function Recommend({ author }) {
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import SwiperCore, { Navigation } from "swiper";
+SwiperCore.use([Navigation]);
+
+export default function RelatedBook({ author }) {
   const { isLoading, isError, relatedBook } = useRelatedBook(author);
   if (isLoading)
     return (
@@ -12,49 +19,31 @@ export default function Recommend({ author }) {
       </Flex>
     );
   return (
-    <Grid templateColumns="repeat(4,1fr)" m={10}>
-      {relatedBook.map((book, index) => (
-        <Link
-          book={book}
-          href={{
-            pathname: `/detail/[id]`,
-            query: {
-              id: book.id,
-            },
-          }}
-        >
-          <Box key={index} position="relative" visibility="">
-            {book.volumeInfo.imageLinks ? (
-              <Image
-                h="15rem"
-                key={index}
-                alt={book.volumeInfo.title}
-                src={book.volumeInfo.imageLinks.thumbnail}
-                borderRadius="0.5rem"
-                boxShadow="md"
-              />
-            ) : (
-              <Image
-                src={bookCover.src}
-                h="15rem"
-                boxShadow="md"
-                borderRadius="0.5rem"
-              />
-            )}
-            <Text
-              p={1}
-              display="flex"
-              justify="center"
-              fontSize="0.7rem"
-              w="10rem"
-              color="#868e96"
-              positon="absolute"
+    <div>
+      <Swiper
+        slidesPerView={4}
+        spaceBetween={10}
+        navigation={true}
+        className="swiper_navigation"
+      >
+        {relatedBook.map((book, index) => (
+          <SwiperSlide key={index} className="swiper_card">
+            <Link
+              book={book}
+              href={{
+                pathname: `/detail/[id]`,
+                query: {
+                  id: book.id,
+                },
+              }}
             >
-              {book.volumeInfo.title}
-            </Text>
-          </Box>
-        </Link>
-      ))}
-    </Grid>
+              <Box maxW="15rem" cursor="pointer">
+                <SimpleCard book={book} />
+              </Box>
+            </Link>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 }
