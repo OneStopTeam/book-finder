@@ -11,7 +11,7 @@ export default function useRelatedBook(author) {
       setIsLoading(true);
       if (author) {
         const response = await axios.get(
-          `https://www.googleapis.com/books/v1/volumes?q=${author}`
+          `https://www.googleapis.com/books/v1/volumes?q=${author}+inauthor`
         );
         setRelatedBook(response.data.items);
       }

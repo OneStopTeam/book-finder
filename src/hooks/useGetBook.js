@@ -13,15 +13,15 @@ export default function useGetBook() {
       setIsLoading(true);
       try {
         const book = await axios.get(
-          `https://www.googleapis.com/books/v1/volumes/${id}?key=${API_KEY}`
+          `https://www.googleapis.com/books/v1/volumes?q=${id}`
         );
         setIsLoading(false);
-        setBookData(book.data);
+        setBookData(book.data.items[0]);
       } catch (error) {
         setIsError(true);
       }
     }
   };
-
+  console.log(bookData);
   return { bookData, isLoading, isError, getBookData };
 }
