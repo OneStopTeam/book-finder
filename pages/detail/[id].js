@@ -1,11 +1,14 @@
-import { Text, Image, Flex } from "@chakra-ui/react";
+import { Text, Icon, Flex, Heading, Button } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
 import useGetBook from "../../src/hooks/useGetBook";
-import bgImage from "assets/book-bg.jpg";
 import Description from "../../src/components/Description";
-import Search from "../../src/components/Search";
+import RelatedBook from "../../src/components/RelatedBook";
+import Navigation from "../../src/components/Navigation";
+
 export default function Detail() {
+  const [more, setMore] = useState(0);
   const {
     query: { id },
   } = useRouter();
@@ -18,16 +21,46 @@ export default function Detail() {
   const showData = () => {
     if (bookData !== null) {
       return (
-        <Flex direction="column" align="center" pos="relative" w="100%">
-          <Image
-            opacity={0.8}
-            src={bgImage.src}
-            w="100%"
-            maxH="2xs"
-            objectFit="cover"
-          />
+        <>
+          <Navigation />
           <Description bookData={bookData} />
-        </Flex>
+          <Flex maxW="80%" justify="center" direction="column">
+            <Flex alignItems="center">
+              <Heading fontSize="2rem" minW="7rem" textColor="#F74900">
+                책소개
+              </Heading>
+              <hr style={{ borderColor: "#F74900", width: "100%" }} />
+            </Flex>
+            {more ? (
+              <>
+                <Flex mt={5} justify="center" ml="2rem" mr="2rem">
+                  {bookData.volumeInfo.description}
+                </Flex>
+                <Flex cursor="pointer" justify="end" alignItems="center">
+                  <Text onClick={() => setMore(0)}>접기</Text>
+                  <Icon as={ChevronUpIcon} color="#F74900" w={5} h={5} />
+                </Flex>
+              </>
+            ) : (
+              <>
+                <Flex mt={5} justify="center" ml="2rem" mr="2rem">
+                  {bookData.volumeInfo.description.slice(0, 500)} ...
+                </Flex>
+                <Flex cursor="pointer" justify="end" alignItems="center">
+                  <Text onClick={() => setMore(1)}>더보기</Text>
+                  <Icon as={ChevronDownIcon} color="#F74900" w={5} h={5} />
+                </Flex>
+              </>
+            )}
+            <Flex alignItems="center" mt={3} mb={5}>
+              <Heading fontSize="2rem" minW="9rem" textColor="#F74900">
+                연관도서
+              </Heading>
+              <hr style={{ borderColor: "#F74900", width: "100%" }} />
+            </Flex>
+            <RelatedBook author={bookData.volumeInfo.authors} />
+          </Flex>
+        </>
       );
     } else {
       return <Text>Nothing...</Text>;

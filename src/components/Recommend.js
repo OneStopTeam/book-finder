@@ -25,7 +25,7 @@ export default function Recommend() {
               },
             }}
           >
-            <Box key={index} book={book} position="relative" visibility="">
+            <Box key={index} book={book} cursor="pointer">
               {book.volumeInfo.imageLinks ? (
                 <Image
                   h="15rem"
