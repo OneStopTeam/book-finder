@@ -1,5 +1,4 @@
 import { Flex, Spacer, Image, Text } from "@chakra-ui/react";
-import logo from "../../assets/logo.svg";
 import Link from "next/link";
 
 export default function Navigation() {
@@ -7,7 +6,7 @@ export default function Navigation() {
     <Flex gap={30} paddingX={100} paddingY={0.7} alignItems="center">
       <Link href="/">
         <Image
-          src={logo.src}
+          src="/logo-black.png"
           boxSize="12rem"
           objectFit="contain"
           mr={2}
