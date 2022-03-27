@@ -16,7 +16,7 @@ export default function Result({ books, isLoading }) {
         <Box textAlign="center">
           <Spinner mt="10%" color="red.500" thickness="4px" size="xl" />
         </Box>
-      ) : books.length === 0 ? (
+      ) : !books ? (
         <Box mt="5%" textAlign="center">
           <Text fontSize="xl" fontWeight="bold" color="orange.600" mb={2}>
             찾으시는 책이 없습니다 😢
