@@ -17,12 +17,14 @@ export default function Result() {
   const keyword = useRecoilValue(keywordState); // 검색어
   const startIndex = useRecoilValue(pageState); // start index for fetching
   const [numberOfData, setNumberOfData] = useState(0);
+
   // keyword로 구글 도서 정보 가져오기
   const { data, isLoading, isError } = useQuery([startIndex, keyword], () =>
     fetchResult(startIndex, keyword)
   );
   const { height: windowHeight } = useWindowDimensions();
 
+  // 검색 결과 개수 구하기
   useEffect(async () => {
     let count = 0; // 검색 결과 개수
 
@@ -46,7 +48,8 @@ export default function Result() {
     if (keyword === "") {
       router.push("/");
     }
-    // 해당 페이지로 이동
+
+    // 선택된 페이지로 이동
     router.push(`/result?page=${startIndex}`);
   }, [startIndex]);
 
@@ -82,7 +85,7 @@ export default function Result() {
             <Text color="accent" as="b">
               {keyword}
             </Text>
-            ' 검색 결과 &nbsp;
+            ' 검색 결과&nbsp;
             <Text color="accent" as="b">
               ({numberOfData})
             </Text>
