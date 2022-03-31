@@ -19,13 +19,16 @@ export default function Result() {
     fetchResult(startIndex, keyword)
   );
   const { height: windowHeight } = useWindowDimensions();
-
   // page 번호 설정
   const clickPage = (event) => {
     setStartIndex(event.target.textContent);
   };
 
   useEffect(() => {
+    // 검색어가 없으면 홈으로 이동
+    if (keyword === "") {
+      router.push("/");
+    }
     // 해당 페이지로 이동
     router.push(`/result?page=${startIndex}`);
   }, [startIndex]);
