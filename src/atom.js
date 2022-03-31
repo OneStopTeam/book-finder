@@ -9,3 +9,8 @@ export const bookState = atom({
   key: "bookState",
   default: [],
 });
+
+export const pageState = atom({
+  key: "pageState",
+  default: 1,
+});

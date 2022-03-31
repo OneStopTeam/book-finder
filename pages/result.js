@@ -1,28 +1,45 @@
 import { useEffect, useState } from "react";
-import { Box, Center, Circle, Flex, HStack, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Text } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 import Search from "../src/components/Search";
-import { keywordState } from "../src/atom";
+import { keywordState, pageState } from "../src/atom";
 import SearchedBook from "../src/components/Books/SearchedBook";
 import { fetchResult } from "../src/fetching";
 import useWindowDimensions from "../src/hooks/useWindowDimensions";
+import Pagination from "../src/components/Pagination";
 
 export default function Result() {
   const router = useRouter();
   const keyword = useRecoilValue(keywordState); // 검색어
-  const [startIndex, setStartIndex] = useState(0); // start index for fetching
+  const startIndex = useRecoilValue(pageState); // start index for fetching
+  const [numberOfData, setNumberOfData] = useState(0);
   // keyword로 구글 도서 정보 가져오기
   const { data, isLoading, isError } = useQuery([startIndex, keyword], () =>
     fetchResult(startIndex, keyword)
   );
   const { height: windowHeight } = useWindowDimensions();
-  // page 번호 설정
-  const clickPage = (event) => {
-    setStartIndex((event.target.textContent - 1) * 20);
-  };
+
+  useEffect(async () => {
+    let count = 0; // 검색 결과 개수
+
+    for (let i = 0; count < 400; i++ * 40) {
+      const {
+        data: { items },
+      } = await axios.get(
+        `https://www.googleapis.com/books/v1/volumes?q=${keyword}&startIndex=${i}&maxResults=40&key=${process.env.NEXT_PUBLIC_API_KEY}`
+      );
+      // items이 더 이상 없으면 종료
+      if (!items) break;
+
+      count += items.length;
+    }
+
+    setNumberOfData(count);
+  }, [keyword]);
 
   useEffect(() => {
     // 검색어가 없으면 홈으로 이동
@@ -67,7 +84,7 @@ export default function Result() {
             </Text>
             ' 검색 결과 &nbsp;
             <Text color="accent" as="b">
-              ({data ? data.length : "0"})
+              ({numberOfData})
             </Text>
           </Text>
           {data ? (
@@ -85,40 +102,7 @@ export default function Result() {
           )}
         </Box>
       )}
-      {data && (
-        <HStack>
-          <Circle
-            _hover={{ cursor: "pointer" }}
-            size="3rem"
-            border="2px"
-            color="black"
-            borderColor="accent"
-            onClick={(event) => clickPage(event)}
-          >
-            1
-          </Circle>
-          <Circle
-            _hover={{ cursor: "pointer" }}
-            size="3rem"
-            border="2px"
-            color="black"
-            borderColor="accent"
-            onClick={(event) => clickPage(event)}
-          >
-            2
-          </Circle>
-          <Circle
-            _hover={{ cursor: "pointer" }}
-            size="3rem"
-            border="2px"
-            color="black"
-            borderColor="accent"
-            onClick={(event) => clickPage(event)}
-          >
-            3
-          </Circle>
-        </HStack>
-      )}
+      {data && <Pagination numberOfPages={Math.ceil(numberOfData / 20)} />}
     </Flex>
   );
 }
