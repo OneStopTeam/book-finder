@@ -21,7 +21,7 @@ export default function Result() {
   const { height: windowHeight } = useWindowDimensions();
   // page 번호 설정
   const clickPage = (event) => {
-    setStartIndex(event.target.textContent);
+    setStartIndex((event.target.textContent - 1) * 20);
   };
 
   useEffect(() => {
