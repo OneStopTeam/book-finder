@@ -1,6 +1,8 @@
-import { Box, Center, Flex, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Box, Center, Circle, Flex, HStack, Text } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
+import { useRouter } from "next/router";
 
 import Search from "../src/components/Search";
 import { keywordState } from "../src/atom";
@@ -9,12 +11,24 @@ import { fetchResult } from "../src/fetching";
 import useWindowDimensions from "../src/hooks/useWindowDimensions";
 
 export default function Result() {
-  const keyword = useRecoilValue(keywordState);
+  const router = useRouter();
+  const keyword = useRecoilValue(keywordState); // 검색어
+  const [startIndex, setStartIndex] = useState(0); // start index for fetching
   // keyword로 구글 도서 정보 가져오기
-  const { data, isLoading, isError } = useQuery(keyword, () =>
-    fetchResult(keyword)
+  const { data, isLoading, isError } = useQuery([startIndex, keyword], () =>
+    fetchResult(startIndex, keyword)
   );
   const { height: windowHeight } = useWindowDimensions();
+
+  // page 번호 설정
+  const clickPage = (event) => {
+    setStartIndex(event.target.textContent);
+  };
+
+  useEffect(() => {
+    // 해당 페이지로 이동
+    router.push(`/result?page=${startIndex}`);
+  }, [startIndex]);
 
   if (isError) {
     return (
@@ -67,6 +81,40 @@ export default function Result() {
             </Center>
           )}
         </Box>
+      )}
+      {data && (
+        <HStack>
+          <Circle
+            _hover={{ cursor: "pointer" }}
+            size="3rem"
+            border="2px"
+            color="black"
+            borderColor="accent"
+            onClick={(event) => clickPage(event)}
+          >
+            1
+          </Circle>
+          <Circle
+            _hover={{ cursor: "pointer" }}
+            size="3rem"
+            border="2px"
+            color="black"
+            borderColor="accent"
+            onClick={(event) => clickPage(event)}
+          >
+            2
+          </Circle>
+          <Circle
+            _hover={{ cursor: "pointer" }}
+            size="3rem"
+            border="2px"
+            color="black"
+            borderColor="accent"
+            onClick={(event) => clickPage(event)}
+          >
+            3
+          </Circle>
+        </HStack>
       )}
     </Flex>
   );
