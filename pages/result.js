@@ -22,17 +22,20 @@ export default function Result() {
     );
   }
 
-  if (isLoading) {
-    return <Center>Loading...</Center>;
-  } else {
-    return (
-      <Flex
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Search />
+  return (
+    <Flex
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Search />
+
+      {isLoading ? (
+        <Center my={windowHeight * 0.4} color="grey">
+          Loading...
+        </Center>
+      ) : (
         <Box w="90%" maxW="55rem">
           <Text
             display="flex"
@@ -45,11 +48,10 @@ export default function Result() {
             <Text color="accent" as="b">
               {keyword}
             </Text>
-            ' 검색 결과 (
+            ' 검색 결과 &nbsp;
             <Text color="accent" as="b">
-              {data ? data.length : "0"}
+              ({data ? data.length : "0"})
             </Text>
-            )
           </Text>
           {data ? (
             // 검색 결과가 있으면
@@ -65,7 +67,7 @@ export default function Result() {
             </Center>
           )}
         </Box>
-      </Flex>
-    );
-  }
+      )}
+    </Flex>
+  );
 }
