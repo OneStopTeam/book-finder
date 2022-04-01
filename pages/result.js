@@ -23,21 +23,17 @@ export default function Result() {
     isError,
   } = useQuery([startIndex, keyword], () => fetchResult(startIndex, keyword));
   const { height: windowHeight } = useWindowDimensions();
-
   // 검색 결과 개수 구하기
   const { numberOfData, isLoading: numberIsLoading } =
     useGetNumberOfData(keyword);
 
   const isLoading = resultIsLoading || numberIsLoading;
 
+  // 검색어가 없으면 홈으로 이동
   useEffect(() => {
-    // 검색어가 없으면 홈으로 이동
     if (keyword === "") {
       router.push("/");
     }
-
-    // 선택된 페이지로 이동
-    router.push(`/result?page=${startIndex}`);
   }, [startIndex]);
 
   if (isError) {
@@ -92,7 +88,9 @@ export default function Result() {
           )}
         </Box>
       )}
-      {data && <Pagination numberOfPages={Math.ceil(numberOfData / 20)} />}
+      {numberOfData && (
+        <Pagination numberOfPages={Math.ceil(numberOfData / 20)} />
+      )}
     </Flex>
   );
 }

@@ -16,8 +16,10 @@ export default function useGetNumberOfData(keyword) {
         `https://www.googleapis.com/books/v1/volumes?q=${keyword}&startIndex=${i}&maxResults=40&key=${process.env.NEXT_PUBLIC_API_KEY}`
       );
       // items이 더 이상 없으면 종료
-      if (!items) break;
-
+      if (!items) {
+        break;
+      }
+      // 개수 증가
       count += items.length;
     }
 
