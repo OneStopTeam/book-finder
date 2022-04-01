@@ -1,10 +1,10 @@
 import { Circle, HStack } from "@chakra-ui/react";
-import { ChevronRightIcon, ChevronLeftIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { pageState } from "../atom";
+import Chevron from "./Buttons/Chevron";
 
 export default function Pagination({ numberOfPages }) {
   const router = useRouter();
@@ -13,7 +13,7 @@ export default function Pagination({ numberOfPages }) {
   const [currentPage, setCurrentPage] = useState("1");
   const [isNextPage, setIsNextPage] = useState(false);
 
-  // page 번호 설정
+  // 선택한 page로 이동
   const movePage = (page) => {
     setStartIndex((page - 1) * 20);
     setCurrentPage(page);
@@ -34,8 +34,8 @@ export default function Pagination({ numberOfPages }) {
 
   // 이전 or 다음 버튼 클릭 시 page 버튼 변경
   const changePages = (where) => {
-    setIsNextPage(where === "next" ? true : false);
     const page = where === "next" ? "6" : "5";
+    setIsNextPage(where === "next" ? true : false);
     movePage(page);
   };
 
@@ -43,39 +43,24 @@ export default function Pagination({ numberOfPages }) {
     <HStack spacing={3} mb="2rem">
       {/* 이전 페이지 버튼 */}
       {isNextPage && (
-        <ChevronLeftIcon
-          boxSize="3rem"
-          color="accent"
-          _hover={{ cursor: "pointer" }}
+        <Chevron
+          direction="left"
+          size="3rem"
           onClick={() => changePages("before")}
         />
       )}
+
+      {/* 페이지 버튼 */}
       {createPages().map((element, index) => {
         const pageNumber = isNextPage ? index + 6 : index + 1;
-        // 현재 페이지 스타일 지정
-        if (`${pageNumber}` === currentPage) {
-          return (
-            <Circle
-              _hover={{ cursor: "pointer" }}
-              size="2.5rem"
-              border="2px"
-              color="white"
-              borderColor="accent"
-              bg="accent"
-              onClick={(event) => movePage(event.target.textContent)}
-            >
-              {pageNumber}
-            </Circle>
-          );
-        }
-
         return (
           <Circle
             _hover={{ cursor: "pointer" }}
             size="2.5rem"
             border="2px"
-            color="black"
+            color={`${pageNumber}` === currentPage ? "white" : "black"}
             borderColor="accent"
+            bg={`${pageNumber}` === currentPage ? "accent" : "transparent"}
             onClick={(event) => movePage(event.target.textContent)}
           >
             {pageNumber}
@@ -85,10 +70,9 @@ export default function Pagination({ numberOfPages }) {
 
       {/* 다음 페이지 버튼 */}
       {!isNextPage && pageArr.length > 5 && (
-        <ChevronRightIcon
-          boxSize="3rem"
-          color="accent"
-          _hover={{ cursor: "pointer" }}
+        <Chevron
+          direction="right"
+          size="3rem"
           onClick={() => changePages("next")}
         />
       )}
