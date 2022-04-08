@@ -4,7 +4,8 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import Search from "../src/components/Search";
 
 export default function Home({ bestSellersData }) {
-  console.log(bestSellersData);
+  console.log(bestSellersData); // undefined
+
   return (
     <Stack>
       <Search />
@@ -18,12 +19,6 @@ export default function Home({ bestSellersData }) {
         >
           베스트셀러 <ChevronRightIcon w={10} h={10} />
         </Heading>
-        {/* {bestSellersData.map((data) => (
-          <Stack>
-            <Img src={data.coverSmallUrl} />
-            <Text>{data.title}</Text>
-          </Stack>
-        ))} */}
       </Box>
     </Stack>
   );
@@ -34,6 +29,8 @@ export async function getServerSideProps({ query }) {
   const bestSellersData = item.map((book) => {
     return { title: book.title, imgUrl: book.coverSmallUrl };
   });
+
+  console.log(bestSellersData);
 
   return {
     props: { bestSellersData }, // will be passed to the page component as props

@@ -13,6 +13,7 @@ app.prepare().then(() => {
 
   server.use(cors());
 
+  // 인터파크 베스트셀러 api를 Home 화면에 전달
   server.get(`/`, async (req, res) => {
     const {
       data: { item },
