@@ -2,11 +2,11 @@
   "name": "book-finder",
   "private": true,
   "scripts": {
-    "server": "node server.js",
+    "server": "nodemon server.js",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@babel/cli": "^7.16.0",
