@@ -1,11 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
-import { useRecoilBridgeAcrossReactRoots_UNSTABLE } from "recoil";
 
 const theme = extendTheme({
-  config: {
-    useSystemColorMode: false,
-  },
-
   fonts: {
     body: "SuncheonR",
     heading: "Jal_Haru",
